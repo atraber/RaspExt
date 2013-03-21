@@ -193,7 +193,8 @@ HEADERS += ui/MainWindow.h \
     hw/HWOutputStepperBt.h \
     hw/BLEThread.h \
     hw/BTClassicThread.h \
-    hw/BTThread.h
+    hw/BTThread.h \
+    hw/HWOutputLCD.h
 FORMS += ui/MainWindow.ui \
     ui/RuleDialog.ui \
     ui/ScriptDialog.ui \
