@@ -147,6 +147,10 @@ ActionOutputWidget::ActionOutputWidget(QWidget* parent, Script *script) : IActio
 
 void ActionOutputWidget::outputChanged(int index)
 {
+    // if the combobox is empty, then there is nothing to do here
+    if(m_comboOutput->count() == 0)
+        return;
+
     QVariant variant = m_comboOutput->itemData( index );
     HWOutput* hw = (HWOutput*)variant.value<void*>();
 

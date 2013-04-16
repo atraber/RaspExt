@@ -18,6 +18,7 @@ RuleDialog::RuleDialog(QWidget *parent, Rule* rule, Script *script) :
 
     ui->editName->setText( QString::fromStdString( m_rule->getName() ) );
     ui->comboType->setCurrentIndex( m_rule->getType() );
+    ui->checkConcurrent->setChecked( !m_rule->getNoConcurrent() );
 
     ui->listActions->setModel(&m_actionModel);
 
@@ -195,6 +196,7 @@ void RuleDialog::closePressed()
 
     m_rule->setName( ui->editName->text().toStdString() );
     m_rule->setType( (Rule::Type)ui->comboType->currentIndex() );
+    m_rule->setNoConcurrent( !ui->checkConcurrent->isChecked() );
 
     this->done(Accepted);
 }

@@ -28,6 +28,12 @@
         </condition>
         <action>
             <type>output</type>
+            <name>TEST</name>
+            <subtype>LED</subtype>
+            <value>50</value>
+        </action>
+        <action>
+            <type>output</type>
             <name>LED red</name>
             <subtype>GPO</subtype>
             <state>High</state>

@@ -68,4 +68,8 @@
         <SlaveAddress>38</SlaveAddress>
         <Port>12</Port>
     </output>
+    <output>
+        <name>TEST</name>
+        <type>LED</type>
+    </output>
 </config>
