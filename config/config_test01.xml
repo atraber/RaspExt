@@ -1,22 +1,27 @@
 <config>
     <input>
+        <name>Button 0</name>
+        <type>Button</type>
+        <hwtype>BtGPIO</hwtype>
+        <PinGroup>2</PinGroup>
+        <Pin>0</Pin>
+        <BtBoard>Stone BT Dom</BtBoard>
+    </input>
+    <input>
         <name>Button 1</name>
         <type>Button</type>
+        <hwtype>BtGPIO</hwtype>
+        <PinGroup>2</PinGroup>
+        <Pin>1</Pin>
+        <BtBoard>Stone BT Dom</BtBoard>
     </input>
     <input>
         <name>Button 2</name>
         <type>Button</type>
-        <hwtype>I2C</hwtype>
-        <SlaveAddress>32</SlaveAddress>
-        <Port>0</Port>
-    </input>
-    <input>
-        <name>Button 3</name>
-        <type>Button</type>
         <hwtype>BtGPIO</hwtype>
         <PinGroup>2</PinGroup>
-        <Pin>6</Pin>
-        <BtBoard>first</BtBoard>
+        <Pin>2</Pin>
+        <BtBoard>Stone BT Dom</BtBoard>
     </input>
     <input>
         <name>Fader 2</name>
@@ -35,49 +40,70 @@
         <hwtype>Bt</hwtype>
         <SlaveAddress>72</SlaveAddress>
         <Channel>0</Channel>
-        <BtBoard>first</BtBoard>
+        <BtBoard>Stone BT Dom</BtBoard>
+    </input>
+    <input>
+        <name>Button 3</name>
+        <type>Button</type>
+        <hwtype>BtGPIO</hwtype>
+        <PinGroup>2</PinGroup>
+        <Pin>3</Pin>
+        <BtBoard>Stone BT Dom</BtBoard>
     </input>
     <output>
-        <name>Relay 2</name>
-        <type>Relay</type>
-    </output>
-    <output>
         <name>Relay 1</name>
-        <type>Relay</type>
-    </output>
-    <output>
-        <name>Relay 4</name>
         <type>Relay</type>
     </output>
     <output>
         <name>Motor 1</name>
         <type>DCMotor</type>
         <hwtype>Bt</hwtype>
-        <BtBoard>First</BtBoard>
+        <BtBoard>Stone BT Dom</BtBoard>
         <SlaveAddress>96</SlaveAddress>
     </output>
     <output>
         <name>LED 1</name>
         <type>LED</type>
         <hwtype>I2C</hwtype>
-        <SlaveAddress>99</SlaveAddress>
-        <Channel>0</Channel>
+        <SlaveAddress>111</SlaveAddress>
+        <Channel>10</Channel>
     </output>
     <output>
         <name>Stepper 2</name>
         <type>Stepper</type>
         <hwtype>I2C</hwtype>
-        <SlaveAddress>23</SlaveAddress>
+        <SlaveAddress>97</SlaveAddress>
     </output>
     <output>
         <name>GPO 1</name>
         <type>GPO</type>
         <hwtype>I2C</hwtype>
-        <SlaveAddress>2</SlaveAddress>
-        <Port>1</Port>
+        <SlaveAddress>38</SlaveAddress>
+        <Port>0</Port>
+    </output>
+    <output>
+        <name>LED2</name>
+        <type>LED</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>111</SlaveAddress>
+        <Channel>11</Channel>
+    </output>
+    <output>
+        <name>LED3</name>
+        <type>LED</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>111</SlaveAddress>
+        <Channel>12</Channel>
+    </output>
+    <output>
+        <name>LED4</name>
+        <type>LED</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>111</SlaveAddress>
+        <Channel>13</Channel>
     </output>
     <bluetooth>
-        <name>First</name>
-        <BTAddress>D0:07:90:5B:77:47</BTAddress>
+        <name>Stone BT Dom</name>
+        <BTAddress>D0:07:90:5B:77:39</BTAddress>
     </bluetooth>
 </config>

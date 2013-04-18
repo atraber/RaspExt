@@ -28,6 +28,12 @@
         </condition>
         <action>
             <type>output</type>
+            <name>TEST</name>
+            <subtype>LED</subtype>
+            <value>50</value>
+        </action>
+        <action>
+            <type>output</type>
             <name>LED red</name>
             <subtype>GPO</subtype>
             <state>High</state>
@@ -455,6 +461,22 @@
             <state>Low</state>
         </action>
         <name>pluto action 5</name>
+        <type>Normal</type>
+    </rule>
+    <rule>
+        <condition>
+            <type>variable</type>
+            <name>State</name>
+            <value>1</value>
+            <trigger>Equal</trigger>
+        </condition>
+        <action>
+            <type>output</type>
+            <name>TEST</name>
+            <subtype>LED</subtype>
+            <value>50</value>
+        </action>
+        <name>TEST</name>
         <type>Normal</type>
     </rule>
     <variable>
