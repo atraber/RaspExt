@@ -3,6 +3,7 @@
 
 #include <QDomElement>
 #include <vector>
+#include <mutex>
 
 #include "hw/HWInput.h"
 #include "hw/HWOutput.h"
@@ -87,6 +88,9 @@ public:
     void setType(Type type) { m_type = type;}
     Type getType() const { return m_type;}
 
+    void setNoConcurrent(bool b) { m_noConcurrent = b;}
+    bool getNoConcurrent() const { return m_noConcurrent;}
+
     void call();
 
     // executeActions is used by RuleTimerThread, if one of the actions was Sleep
@@ -94,6 +98,11 @@ public:
 
 private:
     Type m_type;
+
+    // Concurrent handling
+    bool m_noConcurrent;
+    std::mutex m_mutexConcurrent;
+    bool m_ruleRunning;
 
     bool conditionsTrue();
 

@@ -7,6 +7,8 @@
 Rule::Rule()
 {
     m_type = Normal;
+    m_noConcurrent = false;
+    m_ruleRunning = false;
 }
 
 Rule::~Rule()
@@ -49,6 +51,10 @@ Rule* Rule::load(QDomElement* root)
         {
             rule->setType( StringToType( elem.text().toStdString() ) );
         }
+        else if(elem.tagName().toLower().compare("noconcurrent") == 0)
+        {
+            rule->setNoConcurrent( elem.text().compare("true", Qt::CaseInsensitive) == 0 );
+        }
 
         elem = elem.nextSiblingElement();
     }
@@ -83,6 +89,13 @@ void Rule::save(QDomElement* root, QDomDocument* document)
     type.appendChild(typeText);
 
     rule.appendChild(type);
+
+    // save no concurrent
+    QDomElement noconcurrent = document->createElement("NoConcurrent");
+    QDomText noconcurrentText = document->createTextNode( m_noConcurrent ? "true" : "false" );
+    noconcurrent.appendChild(noconcurrentText);
+
+    rule.appendChild(noconcurrent);
 
     root->appendChild(rule);
 }
@@ -139,6 +152,21 @@ void Rule::conditionChanged(Condition *cond)
 
     if(this->conditionsTrue())
     {
+        if(m_noConcurrent)
+        {
+            m_mutexConcurrent.lock();
+            if( !m_ruleRunning )
+            {
+                m_ruleRunning = true;
+                m_mutexConcurrent.unlock();
+            }
+            else
+            {
+                m_mutexConcurrent.unlock();
+                return; // abort execution as the previous execution of this rule has not yet finished
+            }
+        }
+
         this->executeActions();
     }
 }
@@ -192,6 +220,15 @@ void Rule::executeActions(unsigned int start)
     {
         if( !(m_listActions.at(start)->execute(start) ) )
             break; // Action said we should stop executing other actions
+    }
+
+    // as soon as every action in this rule was executed once,
+    // the rule has stopped running and a new rule can start (for non-concurrent rules)
+    if(m_noConcurrent && start == m_listActions.size())
+    {
+        m_mutexConcurrent.lock();
+        m_ruleRunning = false;
+        m_mutexConcurrent.unlock();
     }
 }
 
