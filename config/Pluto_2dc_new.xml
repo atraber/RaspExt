@@ -1,0 +1,86 @@
+<config>
+    <input>
+        <name>12 remote D</name>
+        <type>Button</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>39</SlaveAddress>
+        <Port>12</Port>
+    </input>
+    <input>
+        <name>13 remote B</name>
+        <type>Button</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>39</SlaveAddress>
+        <Port>13</Port>
+    </input>
+    <input>
+        <name>10 remote C</name>
+        <type>Button</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>39</SlaveAddress>
+        <Port>10</Port>
+    </input>
+    <input>
+        <name>11 remote A</name>
+        <type>Button</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>39</SlaveAddress>
+        <Port>11</Port>
+    </input>
+    <input>
+        <name>15 error Kartensprudel</name>
+        <type>Button</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>39</SlaveAddress>
+        <Port>15</Port>
+    </input>
+    <input>
+        <name>0 error pluto</name>
+        <type>Button</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>39</SlaveAddress>
+        <Port>0</Port>
+    </input>
+    <output>
+        <name>out0 slurp</name>
+        <type>GPO</type>
+    </output>
+    <output>
+        <name>out1 howl</name>
+        <type>GPO</type>
+    </output>
+    <output>
+        <name>out2 wag</name>
+        <type>GPO</type>
+    </output>
+    <output>
+        <name>out3 walk</name>
+        <type>GPO</type>
+    </output>
+    <output>
+        <name>dc A</name>
+        <type>DCMotor</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>96</SlaveAddress>
+    </output>
+    <output>
+        <name>Kartensprudel</name>
+        <type>DCMotor</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>104</SlaveAddress>
+    </output>
+    <output>
+        <name>LED red</name>
+        <type>GPO</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>39</SlaveAddress>
+        <Port>4</Port>
+    </output>
+    <output>
+        <name>LED 0</name>
+        <type>GPO</type>
+        <hwtype>I2C</hwtype>
+        <SlaveAddress>39</SlaveAddress>
+        <Port>1</Port>
+    </output>
+</config>
