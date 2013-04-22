@@ -68,11 +68,14 @@ bool ActionTableModel::removeRow(int row, const QModelIndex &parent)
 }
 
 
-void ActionTableModel::add(Action* action)
+void ActionTableModel::add(Action* action, int row)
 {
-    beginInsertRows(QModelIndex(), this->rowCount(), this->rowCount());
+    if(row == -1)
+        row = this->rowCount();
 
-    m_rule->addAction(action);
+    beginInsertRows(QModelIndex(), row, row);
+
+    m_rule->addAction(action, row);
 
     endInsertRows();
 }

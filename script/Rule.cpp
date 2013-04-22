@@ -100,10 +100,14 @@ void Rule::save(QDomElement* root, QDomDocument* document)
     root->appendChild(rule);
 }
 
-void Rule::addCondition(Condition *cond)
+void Rule::addCondition(Condition *cond, int index)
 {
     cond->setRule(this);
-    m_listConditions.push_back(cond);
+
+    if(index == -1)
+        m_listConditions.push_back(cond);
+    else
+        m_listConditions.insert(m_listConditions.begin() + index, cond);
 }
 
 void Rule::editCondition(Condition *oldCond, Condition *newCond)
@@ -132,10 +136,14 @@ void Rule::removeCondition(Condition* cond)
     }
 }
 
-void Rule::addAction(Action *action)
+void Rule::addAction(Action *action, int index)
 {
     action->setRule(this);
-    m_listActions.push_back(action);
+
+    if(index == -1)
+        m_listActions.push_back(action);
+    else
+        m_listActions.insert(m_listActions.begin() + index, action);
 }
 
 void Rule::editAction(Action *oldAction, Action *newAction)

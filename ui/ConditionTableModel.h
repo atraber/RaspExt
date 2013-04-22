@@ -19,7 +19,7 @@ public:
     Condition* get(unsigned int row) const;
 
     void removeRow(int row, const QModelIndex &parent = QModelIndex());
-    void add(Condition* condition);
+    void add(Condition* condition, int row = -1);
     void editRow(int row, Condition* condition);
 
 private:

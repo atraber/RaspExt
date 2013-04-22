@@ -67,11 +67,14 @@ void ConditionTableModel::removeRow(int row, const QModelIndex &parent)
     endRemoveRows();
 }
 
-void ConditionTableModel::add(Condition *condition)
+void ConditionTableModel::add(Condition *condition, int row)
 {
-    beginInsertRows(QModelIndex(), this->rowCount(), this->rowCount());
+    if(row == -1)
+        row = this->rowCount();
 
-    m_rule->addCondition(condition);
+    beginInsertRows(QModelIndex(), row, row);
+
+    m_rule->addCondition(condition, row);
 
     endInsertRows();
 }

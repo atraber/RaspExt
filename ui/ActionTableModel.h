@@ -19,7 +19,7 @@ public:
     Action* get(unsigned int row) const;
 
     bool removeRow(int row, const QModelIndex &parent = QModelIndex());
-    void add(Action* action);
+    void add(Action* action, int row = -1);
     void edit(int row, Action* action);
     void swap(int src, int dst);
 

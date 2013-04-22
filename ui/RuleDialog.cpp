@@ -54,7 +54,13 @@ void RuleDialog::addAction()
         // only try to add if action is not NULL
         if(action != NULL)
         {
-            m_actionModel.add(action);
+            // get current index as we want to insert our action below it
+            QModelIndexList indices = ui->listActions->selectionModel()->selection().indexes();
+
+            if(indices.size() > 0)
+                m_actionModel.add(action, indices.front().row() + 1);
+            else
+                m_actionModel.add(action);
         }
     }
 
@@ -126,7 +132,13 @@ void RuleDialog::addCondition()
         // only try to add if condition is not NULL
         if(condition != NULL)
         {
-            m_conditionModel.add(condition);
+            // get current index as we want to insert our action below it
+            QModelIndexList indices = ui->listConditions->selectionModel()->selection().indexes();
+
+            if(indices.size() > 0)
+                m_conditionModel.add(condition, indices.front().row() + 1);
+            else
+                m_conditionModel.add(condition);
         }
     }
 
