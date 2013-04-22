@@ -106,6 +106,20 @@ void Rule::addCondition(Condition *cond)
     m_listConditions.push_back(cond);
 }
 
+void Rule::editCondition(Condition *oldCond, Condition *newCond)
+{
+    newCond->setRule(this);
+
+    for(std::vector<Condition*>::iterator it = m_listConditions.begin(); it != m_listConditions.end(); it++)
+    {
+        if(*it == oldCond)
+        {
+            *it = newCond;
+            break;
+        }
+    }
+}
+
 void Rule::removeCondition(Condition* cond)
 {
     for(std::vector<Condition*>::iterator it = m_listConditions.begin(); it != m_listConditions.end(); it++)
@@ -122,6 +136,20 @@ void Rule::addAction(Action *action)
 {
     action->setRule(this);
     m_listActions.push_back(action);
+}
+
+void Rule::editAction(Action *oldAction, Action *newAction)
+{
+    newAction->setRule(this);
+
+    for(std::vector<Action*>::iterator it = m_listActions.begin(); it != m_listActions.end(); it++)
+    {
+        if(*it == oldAction)
+        {
+            *it = newAction;
+            break;
+        }
+    }
 }
 
 /**

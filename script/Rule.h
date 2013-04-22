@@ -71,9 +71,11 @@ public:
 
     // condition will be deleted by this class
     void addCondition(Condition* cond);
+    void editCondition(Condition* oldCond, Condition* newCond);
     void removeCondition(Condition* cond);
     // action will be deleted by this class
     void addAction(Action* action);
+    void editAction(Action* oldAction, Action* newAction);
 
     void getRequiredList(std::list<RequiredInput>* listInput, std::list<RequiredOutput>* listOutput, std::list<RequiredVariable>* listVariable);
 

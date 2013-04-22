@@ -68,8 +68,9 @@ void RuleDialog::editAction()
 
     if(indices.size() != 0)
     {
+        int row = indices.front().row();
         ActionDialog* dialog = new ActionDialog(this, m_script);
-        dialog->edit( m_actionModel.get( indices.front().row() ) );
+        dialog->edit( m_actionModel.get( row ) );
 
         if( dialog->exec() == Accepted )
         {
@@ -78,8 +79,7 @@ void RuleDialog::editAction()
             // only try to add if action is not NULL
             if(action != NULL)
             {
-                m_actionModel.removeRow( indices.front().row() );
-                m_actionModel.add(action);
+                m_actionModel.edit(row, action);
             }
         }
     }
@@ -139,8 +139,10 @@ void RuleDialog::editCondition()
 
     if(indices.size() != 0)
     {
+        int row = indices.front().row();
+
         ConditionDialog* dialog = new ConditionDialog(this, m_script);
-        dialog->edit( m_conditionModel.get( indices.front().row() ) );
+        dialog->edit( m_conditionModel.get( row ) );
 
         if( dialog->exec() == Accepted )
         {
@@ -149,8 +151,7 @@ void RuleDialog::editCondition()
             // only try to add if condition is not NULL
             if(condition != NULL)
             {
-                m_conditionModel.removeRow( indices.front().row() );
-                m_conditionModel.add(condition);
+                m_conditionModel.editRow(row, condition);
             }
         }
 

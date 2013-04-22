@@ -20,6 +20,7 @@ public:
 
     void removeRow(int row, const QModelIndex &parent = QModelIndex());
     void add(Condition* condition);
+    void editRow(int row, Condition* condition);
 
 private:
     Rule* m_rule;

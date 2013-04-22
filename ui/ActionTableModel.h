@@ -20,6 +20,7 @@ public:
 
     bool removeRow(int row, const QModelIndex &parent = QModelIndex());
     void add(Action* action);
+    void edit(int row, Action* action);
     void swap(int src, int dst);
 
 private:

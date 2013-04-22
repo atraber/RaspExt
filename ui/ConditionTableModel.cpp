@@ -76,6 +76,11 @@ void ConditionTableModel::add(Condition *condition)
     endInsertRows();
 }
 
+void ConditionTableModel::editRow(int row, Condition *condition)
+{
+    m_rule->editCondition( m_rule->m_listConditions.at( row ), condition );
+}
+
 Condition* ConditionTableModel::get(unsigned int row) const
 {
     return m_rule->m_listConditions.at(row);

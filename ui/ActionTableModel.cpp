@@ -77,6 +77,11 @@ void ActionTableModel::add(Action* action)
     endInsertRows();
 }
 
+void ActionTableModel::edit(int row, Action *action)
+{
+    m_rule->editAction( m_rule->m_listActions.at( row ), action );
+}
+
 Action* ActionTableModel::get(unsigned int row) const
 {
     return m_rule->m_listActions.at(row);
