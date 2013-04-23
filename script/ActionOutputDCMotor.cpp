@@ -123,7 +123,11 @@ void ActionOutputDCMotor::deinit()
 
 bool ActionOutputDCMotor::execute(unsigned int)
 {
-    pi_assert(m_hw != NULL);
+    if(m_hw == NULL)
+    {
+        pi_warn("HW does not exist, cannot execute action");
+        return true; // still return true as false would mean that all following actions should not be executed
+    }
 
     HWOutputDCMotor* hw = (HWOutputDCMotor*)m_hw;
 
@@ -133,7 +137,11 @@ bool ActionOutputDCMotor::execute(unsigned int)
     }
     else
     {
-        pi_assert(m_hwInput != NULL);
+        if(m_hwInput == NULL)
+        {
+            pi_warn("Input HW does not exist, cannot execute action");
+            return true; // still return true as false would mean that all following actions should not be executed
+        }
 
         unsigned int speed = ((HWInputFader*)m_hwInput)->getValue();
 

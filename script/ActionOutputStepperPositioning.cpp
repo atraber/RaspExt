@@ -116,7 +116,11 @@ QDomElement ActionOutputStepperPositioning::save(QDomElement* root, QDomDocument
 
 bool ActionOutputStepperPositioning::execute(unsigned int)
 {
-    pi_assert(m_hw != NULL);
+    if(m_hw == NULL)
+    {
+        pi_warn("HW does not exist, cannot execute action");
+        return true; // still return true as false would mean that all following actions should not be executed
+    }
 
     HWOutputStepper* hw = (HWOutputStepper*)m_hw;
 

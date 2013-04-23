@@ -84,7 +84,11 @@ void ActionOutputRelay::getRequiredList(std::list<Rule::RequiredInput>* listInpu
 
 bool ActionOutputRelay::execute(unsigned int)
 {
-    pi_assert(m_hw != NULL);
+    if(m_hw == NULL)
+    {
+        pi_warn("HW does not exist, cannot execute action");
+        return true; // still return true as false would mean that all following actions should not be executed
+    }
 
     bool outputState = false;
     switch(m_state)
