@@ -17,7 +17,10 @@ ScriptsTableModel::ScriptsTableModel(QObject* parent) : QAbstractTableModel(pare
         name.chop(4);
 
         Script* script = Script::load( name.toStdString() );
-        m_vecScripts.push_back(script);
+
+        // if script is NULL, then the script could not be loaded. This means its either invalid or could not be opened
+        if(script != NULL)
+            m_vecScripts.push_back(script);
     }
 }
 

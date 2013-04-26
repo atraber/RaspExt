@@ -30,7 +30,7 @@ Script* Script::load(std::string name)
     QFile file(filename.c_str());
     if(!file.open(QIODevice::ReadOnly))
     {
-        pi_warn("Could not open file");
+        pi_message("Could not open file %s", filename.c_str());
         return NULL;
     }
 
@@ -42,7 +42,7 @@ Script* Script::load(std::string name)
     // check if this is a valid script file
     if(docElem.tagName().toLower().compare("script") != 0)
     {
-        pi_warn("Invalid configuration file: tag \"script\" is missing");
+        pi_message("Invalid script file %s: tag \"script\" is missing", filename.c_str());
         return NULL;
     }
 
