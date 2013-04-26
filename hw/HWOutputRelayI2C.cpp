@@ -71,7 +71,7 @@ void HWOutputRelayI2C::setI2C(I2CThread* i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
 
@@ -83,7 +83,7 @@ void HWOutputRelayI2C::setI2C(I2CThread* i2cThread)
 
     if( !m_i2cThread->write(buf, 2) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }
@@ -94,7 +94,7 @@ void HWOutputRelayI2C::setupI2C(I2CThread* i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
 
@@ -105,7 +105,7 @@ void HWOutputRelayI2C::setupI2C(I2CThread* i2cThread)
     buf[1] = 0x00;
     if( !m_i2cThread->write(buf, 2) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 
@@ -120,7 +120,7 @@ void HWOutputRelayI2C::setupI2C(I2CThread* i2cThread)
 
     if( !m_i2cThread->write(buf, 2) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }

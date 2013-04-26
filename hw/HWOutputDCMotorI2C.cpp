@@ -27,7 +27,7 @@ HWOutput* HWOutputDCMotorI2C::load(QDomElement *root)
     // check for invalid parameters
     if( hw->m_slaveAddress > 127 || hw->m_slaveAddress < 0)
     {
-        pi_warn("Invalid i2c parameters");
+        I2C_warn("Invalid i2c parameters");
         return NULL;
     }
 
@@ -59,7 +59,7 @@ void HWOutputDCMotorI2C::setI2C(I2CThread* i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
     // first select register 0x00 on drv8830
@@ -70,7 +70,7 @@ void HWOutputDCMotorI2C::setI2C(I2CThread* i2cThread)
 
     if( !m_i2cThread->write(buf, 2) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }

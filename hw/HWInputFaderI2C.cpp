@@ -91,7 +91,7 @@ void HWInputFaderI2C::poll(I2CThread* i2cThread)
 
     if( !i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
 
@@ -102,14 +102,14 @@ void HWInputFaderI2C::poll(I2CThread* i2cThread)
 
     if( !i2cThread->write(buf, 1) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 
     // read back value
     if( !i2cThread->read(buf, 1) )
     {
-        pi_warn("Could not read from bus");
+        I2C_warn("Could not read from bus");
         return;
     }
 

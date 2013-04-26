@@ -132,7 +132,7 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
 
@@ -141,14 +141,14 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 
     // read back value
     if( !m_i2cThread->read(buf, 8) )
     {
-        pi_warn("Could not read from bus");
+        I2C_warn("Could not read from bus");
         return;
     }
 
@@ -182,14 +182,14 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 
     // read back value
     if( !m_i2cThread->read(buf, 8) )
     {
-        pi_warn("Could not read from bus");
+        I2C_warn("Could not read from bus");
         return;
     }
 
@@ -215,7 +215,7 @@ void HWOutputStepperI2C::testBemfI2C(I2CThread *i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
     // send command byte (see page 51 of datasheet)
@@ -223,7 +223,7 @@ void HWOutputStepperI2C::testBemfI2C(I2CThread *i2cThread)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }
@@ -236,7 +236,7 @@ void HWOutputStepperI2C::softStopI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
     // send command byte (see page 44 of datasheet)
@@ -244,7 +244,7 @@ void HWOutputStepperI2C::softStopI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }
@@ -257,7 +257,7 @@ void HWOutputStepperI2C::setPositionI2C(I2CThread *i2cThread, short position, bo
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
 
@@ -270,7 +270,7 @@ void HWOutputStepperI2C::setPositionI2C(I2CThread *i2cThread, short position, bo
 
     if( !m_i2cThread->write(buf, 5) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }
@@ -288,7 +288,7 @@ void HWOutputStepperI2C::setDualPositionI2C(I2CThread *i2cThread,
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
 
@@ -304,7 +304,7 @@ void HWOutputStepperI2C::setDualPositionI2C(I2CThread *i2cThread,
 
     if( !m_i2cThread->write(buf, 8) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }
@@ -317,7 +317,7 @@ void HWOutputStepperI2C::resetPositionI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
 
@@ -326,7 +326,7 @@ void HWOutputStepperI2C::resetPositionI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }
@@ -339,7 +339,7 @@ void HWOutputStepperI2C::runVelocityI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
     // send command byte (see page 44 of datasheet)
@@ -347,7 +347,7 @@ void HWOutputStepperI2C::runVelocityI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }
@@ -363,7 +363,7 @@ void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool ove
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        pi_warn("Failed to talk to slave");
+        I2C_warn("Failed to talk to slave");
         return;
     }
 
@@ -389,7 +389,7 @@ void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool ove
 
     if( !m_i2cThread->write(buf, 8) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 
@@ -413,7 +413,7 @@ void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool ove
 
     if( !m_i2cThread->write(buf, 8) )
     {
-        pi_warn("Could not write to bus");
+        I2C_warn("Could not write to bus");
         return;
     }
 }
