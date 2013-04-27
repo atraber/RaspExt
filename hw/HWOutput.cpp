@@ -15,6 +15,7 @@
 HWOutput::HWOutput()
 {
     m_bOverride = false;
+    m_errorLevel = OK;
 }
 
 HWOutput::~HWOutput()
@@ -125,6 +126,7 @@ void HWOutput::registerOutputListener(HWOutputListener *listener)
     m_listListeners.push_back(listener);
 
     listener->onOutputChanged(this);
+    listener->onOutputErrorChanged(this);
 }
 
 /**
@@ -139,7 +141,7 @@ void HWOutput::unregisterOutputListener(HWOutputListener *listener)
 }
 
 /**
- * @brief HWInput::outputChanged calls all registered outputListener, so that they can detect that this output has changed.
+ * @brief HWOutput::outputChanged calls all registered outputListener, so that they can detect that this output has changed.
  */
 void HWOutput::outputChanged()
 {
@@ -148,6 +150,49 @@ void HWOutput::outputChanged()
         (*it)->onOutputChanged(this);
     }
 }
+
+
+/**
+ * @brief HWOutput::errorLevelChanged calls all registered outputListener, so that they can detect that the error level for this output has changed.
+ */
+void HWOutput::errorLevelChanged()
+{
+    for(std::list<HWOutputListener*>::iterator it = m_listListeners.begin(); it != m_listListeners.end(); it++)
+    {
+        (*it)->onOutputErrorChanged(this);
+    }
+}
+
+void
+HWOutput::handleError(bool errorOccurred, bool catastrophic)
+{
+    ErrorLevel newLevel = m_errorLevel;
+    if(errorOccurred)
+    {
+        if(catastrophic)
+            newLevel = Failure;
+        else if(m_errorLevel == OK)
+            newLevel = Warning;
+        else if(m_errorLevel == Warning)
+            newLevel = Critical;
+    }
+    else
+    {
+        if(m_errorLevel == Failure)
+            newLevel = Critical;
+        else if(m_errorLevel == Critical)
+            newLevel = Warning;
+        else if(m_errorLevel == Warning)
+            newLevel = OK;
+    }
+
+    if(newLevel != m_errorLevel)
+    {
+        m_errorLevel = newLevel;
+        this->errorLevelChanged();
+    }
+}
+
 
 std::string HWOutput::HWOutputTypeToString(HWOutputType type)
 {

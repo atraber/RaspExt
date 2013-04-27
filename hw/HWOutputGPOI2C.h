@@ -22,6 +22,8 @@ public:
     static HWOutput* load(QDomElement* root);
     virtual QDomElement save(QDomElement* root, QDomDocument* document);
 
+    virtual void handleError(bool errorOccurred, bool catastrophic = false);
+
     unsigned int getPort() const { return m_port;}
     void setPort(unsigned int port) { m_port = port;}
 

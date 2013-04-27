@@ -50,6 +50,8 @@ void OutputLEDFrame::sliderChanged(int value)
 
 void OutputLEDFrame::onOutputChangedGUI()
 {
+    OutputFrame::onOutputChangedGUI();
+
     ui->progressBar->setValue(m_hw->getValue());
     ui->slider->setValue(m_hw->getValue());
 }

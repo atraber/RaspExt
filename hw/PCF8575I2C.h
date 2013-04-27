@@ -7,7 +7,7 @@
 #include <list>
 
 class HWInputButtonI2C;
-class HWOutputGPO;
+class HWOutputGPOI2C;
 
 class PCF8575I2C : public I2CPolling, HWOutputListener
 {
@@ -17,8 +17,8 @@ public:
     void addInput(HWInputButtonI2C* hw, unsigned int port);
     void removeInput(HWInputButtonI2C* hw);
 
-    void addOutput(HWOutputGPO* hw, unsigned int port);
-    void removeOutput(HWOutputGPO* hw);
+    void addOutput(HWOutputGPOI2C* hw, unsigned int port);
+    void removeOutput(HWOutputGPOI2C* hw);
 
     bool empty() const { return m_listInput.empty() && m_listOutput.empty();}
 
@@ -33,7 +33,8 @@ private:
     void setI2C(I2CThread* i2cThread);
 
     void onOutputChanged(HWOutput *hw);
-    void handleError(bool errorOccurred, bool catastrophic = false);
+    void handleErrorInput(bool errorOccurred, bool catastrophic = false);
+    void handleErrorOutput(bool errorOccurred, bool catastrophic = false);
 
     struct InputElement
     {
@@ -44,7 +45,7 @@ private:
     struct OutputElement
     {
         unsigned int port;
-        HWOutputGPO* hw;
+        HWOutputGPOI2C* hw;
     };
 
     void updateI2C();

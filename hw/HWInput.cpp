@@ -141,7 +141,7 @@ void HWInput::inputChanged()
 }
 
 /**
- * @brief HWInput::inputChanged calls all registered inputListener, so that they can detect that the error level for this input has changed.
+ * @brief HWInput::errorLevelChanged calls all registered inputListener, so that they can detect that the error level for this input has changed.
  */
 void HWInput::errorLevelChanged()
 {

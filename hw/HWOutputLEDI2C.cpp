@@ -72,6 +72,9 @@ void HWOutputLEDI2C::setI2C(I2CThread* i2cThread)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+
+        this->handleError(true);
+
         return;
     }
 
@@ -84,8 +87,12 @@ void HWOutputLEDI2C::setI2C(I2CThread* i2cThread)
     if( !m_i2cThread->write(buf, 2) )
     {
         I2C_warn("Could not write to bus");
+
+        this->handleError(true);
+
         return;
     }
+    this->handleError(false);
 }
 
 void HWOutputLEDI2C::setupI2C(I2CThread *i2cThread)
@@ -95,6 +102,9 @@ void HWOutputLEDI2C::setupI2C(I2CThread *i2cThread)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress))
     {
         I2C_warn("Failed to talk to slave");
+
+        this->handleError(true, true);
+
         return;
     }
 
@@ -107,6 +117,9 @@ void HWOutputLEDI2C::setupI2C(I2CThread *i2cThread)
     if( !m_i2cThread->write(buf, 2) )
     {
         I2C_warn("Could not write to bus");
+
+        this->handleError(true, true);
+
         return;
     }
 
@@ -122,8 +135,12 @@ void HWOutputLEDI2C::setupI2C(I2CThread *i2cThread)
     if( !m_i2cThread->write(buf, 2) )
     {
         I2C_warn("Could not write to bus");
+
+        this->handleError(true, true);
+
         return;
     }
+    this->handleError(false);
 }
 
 void HWOutputLEDI2C::init(ConfigManager *config)

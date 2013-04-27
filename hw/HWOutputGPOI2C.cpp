@@ -77,3 +77,8 @@ void HWOutputGPOI2C::deinit(ConfigManager* config)
     m_i2cThread->removeOutputPCF8575(this, m_slaveAddress);
     m_i2cThread = NULL;
 }
+
+void HWOutputGPOI2C::handleError(bool errorOccurred, bool catastrophic)
+{
+    HWOutput::handleError(errorOccurred, catastrophic);
+}

@@ -60,6 +60,9 @@ void HWOutputDCMotorI2C::setI2C(I2CThread* i2cThread)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+
+        this->handleError(true);
+
         return;
     }
     // first select register 0x00 on drv8830
@@ -71,6 +74,9 @@ void HWOutputDCMotorI2C::setI2C(I2CThread* i2cThread)
     if( !m_i2cThread->write(buf, 2) )
     {
         I2C_warn("Could not write to bus");
+
+        this->handleError(true);
+
         return;
     }
 }

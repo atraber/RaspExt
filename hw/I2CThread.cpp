@@ -165,7 +165,7 @@ void I2CThread::addOutputPCF8575(HWOutput* hw, int slaveAddress, unsigned int po
         if( (*it)->getSlaveAddress() == slaveAddress )
         {
             // we found it
-            (*it)->addOutput((HWOutputGPO*)hw, port);
+            (*it)->addOutput((HWOutputGPOI2C*)hw, port);
             return;
         }
     }
@@ -176,7 +176,7 @@ void I2CThread::addOutputPCF8575(HWOutput* hw, int slaveAddress, unsigned int po
 
     pcf->init(this);
 
-    pcf->addOutput((HWOutputGPO*)hw, port);
+    pcf->addOutput((HWOutputGPOI2C*)hw, port);
 }
 
 void I2CThread::removeOutputPCF8575(HWOutput* hw, int slaveAddress)
@@ -187,7 +187,7 @@ void I2CThread::removeOutputPCF8575(HWOutput* hw, int slaveAddress)
         if( (*it)->getSlaveAddress() == slaveAddress )
         {
             // we found it
-            (*it)->removeOutput((HWOutputGPO*)hw);
+            (*it)->removeOutput((HWOutputGPOI2C*)hw);
 
             // check if the pcf object is empty now
             if((*it)->empty())

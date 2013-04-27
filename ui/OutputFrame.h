@@ -16,12 +16,15 @@ public:
 
 signals:
     void onOutputChangedSignal();
+    void onOutputErrorChangedSignal();
 
 protected slots:
-    virtual void onOutputChangedGUI() = 0;
+    virtual void onOutputChangedGUI();
+    virtual void onOutnputErrorChangedGUI();
 
 private:
     void onOutputChanged(HWOutput* hw);
+    void onOutputErrorChanged(HWOutput *hw);
 
     HWOutput* m_hw;
 };

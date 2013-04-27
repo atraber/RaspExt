@@ -32,6 +32,14 @@ public:
         BtI2C = 2,
     };
 
+    enum ErrorLevel
+    {
+        OK = 0,
+        Warning = 1,
+        Critical = 2,
+        Failure = 3
+    };
+
     static std::string HWOutputTypeToString(HWOutputType type);
     static HWOutputType StringToHWOutputType(std::string str);
 
@@ -51,12 +59,18 @@ public:
     void setOverride(bool b);
     bool getOverride() const;
 
+    ErrorLevel getErrorLevel() const { return m_errorLevel;}
+
     void registerOutputListener(HWOutputListener* listener);
     void unregisterOutputListener(HWOutputListener* listener);
 
 protected:
     virtual void outputChanged();
+    virtual void errorLevelChanged();
 
+    virtual void handleError(bool errorOccurred, bool catastrophic = false);
+
+    ErrorLevel m_errorLevel;
     HWOutputType m_type;
     bool m_bOverride;
     std::string m_name;

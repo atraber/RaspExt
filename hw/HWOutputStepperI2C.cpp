@@ -133,6 +133,9 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+
+        this->handleError(true);
+
         return;
     }
 
@@ -142,6 +145,9 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
     if( !m_i2cThread->write(buf, 1) )
     {
         I2C_warn("Could not write to bus");
+
+        this->handleError(true);
+
         return;
     }
 
@@ -149,6 +155,9 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
     if( !m_i2cThread->read(buf, 8) )
     {
         I2C_warn("Could not read from bus");
+
+        this->handleError(true);
+
         return;
     }
 
@@ -183,6 +192,9 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
     if( !m_i2cThread->write(buf, 1) )
     {
         I2C_warn("Could not write to bus");
+
+        this->handleError(true);
+
         return;
     }
 
@@ -190,8 +202,12 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
     if( !m_i2cThread->read(buf, 8) )
     {
         I2C_warn("Could not read from bus");
+
+        this->handleError(true);
+
         return;
     }
+    this->handleError(false);
 
     // handle GetFullStatus2
     m_fullStatus.actualPosition = buf[1] << 8 | buf[2];
@@ -216,6 +232,7 @@ void HWOutputStepperI2C::testBemfI2C(I2CThread *i2cThread)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+        this->handleError(true);
         return;
     }
     // send command byte (see page 51 of datasheet)
@@ -224,8 +241,10 @@ void HWOutputStepperI2C::testBemfI2C(I2CThread *i2cThread)
     if( !m_i2cThread->write(buf, 1) )
     {
         I2C_warn("Could not write to bus");
+        this->handleError(true);
         return;
     }
+    this->handleError(false);
 }
 
 void HWOutputStepperI2C::softStopI2C(I2CThread *i2cThread, bool override)
@@ -237,6 +256,7 @@ void HWOutputStepperI2C::softStopI2C(I2CThread *i2cThread, bool override)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+        this->handleError(true);
         return;
     }
     // send command byte (see page 44 of datasheet)
@@ -245,8 +265,10 @@ void HWOutputStepperI2C::softStopI2C(I2CThread *i2cThread, bool override)
     if( !m_i2cThread->write(buf, 1) )
     {
         I2C_warn("Could not write to bus");
+        this->handleError(true);
         return;
     }
+    this->handleError(false);
 }
 
 void HWOutputStepperI2C::setPositionI2C(I2CThread *i2cThread, short position, bool override)
@@ -258,6 +280,7 @@ void HWOutputStepperI2C::setPositionI2C(I2CThread *i2cThread, short position, bo
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+        this->handleError(true);
         return;
     }
 
@@ -271,8 +294,10 @@ void HWOutputStepperI2C::setPositionI2C(I2CThread *i2cThread, short position, bo
     if( !m_i2cThread->write(buf, 5) )
     {
         I2C_warn("Could not write to bus");
+        this->handleError(true);
         return;
     }
+    this->handleError(false);
 }
 
 void HWOutputStepperI2C::setDualPositionI2C(I2CThread *i2cThread,
@@ -289,6 +314,7 @@ void HWOutputStepperI2C::setDualPositionI2C(I2CThread *i2cThread,
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+        this->handleError(true);
         return;
     }
 
@@ -305,8 +331,10 @@ void HWOutputStepperI2C::setDualPositionI2C(I2CThread *i2cThread,
     if( !m_i2cThread->write(buf, 8) )
     {
         I2C_warn("Could not write to bus");
+        this->handleError(true);
         return;
     }
+    this->handleError(false);
 }
 
 void HWOutputStepperI2C::resetPositionI2C(I2CThread *i2cThread, bool override)
@@ -318,6 +346,7 @@ void HWOutputStepperI2C::resetPositionI2C(I2CThread *i2cThread, bool override)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+        this->handleError(true);
         return;
     }
 
@@ -327,8 +356,10 @@ void HWOutputStepperI2C::resetPositionI2C(I2CThread *i2cThread, bool override)
     if( !m_i2cThread->write(buf, 1) )
     {
         I2C_warn("Could not write to bus");
+        this->handleError(true);
         return;
     }
+    this->handleError(false);
 }
 
 void HWOutputStepperI2C::runVelocityI2C(I2CThread *i2cThread, bool override)
@@ -340,6 +371,7 @@ void HWOutputStepperI2C::runVelocityI2C(I2CThread *i2cThread, bool override)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+        this->handleError(true);
         return;
     }
     // send command byte (see page 44 of datasheet)
@@ -348,8 +380,10 @@ void HWOutputStepperI2C::runVelocityI2C(I2CThread *i2cThread, bool override)
     if( !m_i2cThread->write(buf, 1) )
     {
         I2C_warn("Could not write to bus");
+        this->handleError(true);
         return;
     }
+    this->handleError(false);
 }
 
 void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool override)
@@ -364,6 +398,7 @@ void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool ove
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+        this->handleError(true);
         return;
     }
 
@@ -390,6 +425,7 @@ void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool ove
     if( !m_i2cThread->write(buf, 8) )
     {
         I2C_warn("Could not write to bus");
+        this->handleError(true);
         return;
     }
 
@@ -414,6 +450,8 @@ void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool ove
     if( !m_i2cThread->write(buf, 8) )
     {
         I2C_warn("Could not write to bus");
+        this->handleError(true);
         return;
     }
+    this->handleError(false);
 }

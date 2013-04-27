@@ -45,7 +45,7 @@ void PCF8575I2C::removeInput(HWInputButtonI2C *hw)
     }
 }
 
-void PCF8575I2C::addOutput(HWOutputGPO *hw, unsigned int port)
+void PCF8575I2C::addOutput(HWOutputGPOI2C *hw, unsigned int port)
 {
     OutputElement el;
     el.hw = hw;
@@ -56,7 +56,7 @@ void PCF8575I2C::addOutput(HWOutputGPO *hw, unsigned int port)
     hw->registerOutputListener(this);
 }
 
-void PCF8575I2C::removeOutput(HWOutputGPO *hw)
+void PCF8575I2C::removeOutput(HWOutputGPOI2C *hw)
 {
     for(std::list<OutputElement>::iterator it = m_listOutput.begin(); it != m_listOutput.end(); it++)
     {
@@ -77,6 +77,7 @@ void PCF8575I2C::setI2C(I2CThread *i2cThread)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+        this->handleErrorOutput(true);
         return;
     }
 
@@ -86,7 +87,10 @@ void PCF8575I2C::setI2C(I2CThread *i2cThread)
     if( !m_i2cThread->write(buf, 2) )
     {
         I2C_warn("Could not write to bus");
+        this->handleErrorOutput(true);
+        return;
     }
+    this->handleErrorOutput(false);
 }
 
 
@@ -97,6 +101,7 @@ void PCF8575I2C::poll(I2CThread* i2cThread)
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+        this->handleErrorInput(true);
         return;
     }
 
@@ -104,6 +109,7 @@ void PCF8575I2C::poll(I2CThread* i2cThread)
     if( !m_i2cThread->read(buf, 2) )
     {
         I2C_warn("Could not read from bus");
+        this->handleErrorInput(true);
         return;
     }
 
@@ -113,6 +119,7 @@ void PCF8575I2C::poll(I2CThread* i2cThread)
     {
         // call every HW Element to check, if its input has changed
         it->hw->onInputPolled( (portState & (1 << it->port)) == 0 );
+        it->hw->handleError(false);
         // TODO: think about optimization here
     }
 }
@@ -148,9 +155,17 @@ void PCF8575I2C::onOutputChanged(HWOutput *hw)
     this->updateI2C();
 }
 
-void PCF8575I2C::handleError(bool errorOccurred, bool catastrophic)
+void PCF8575I2C::handleErrorInput(bool errorOccurred, bool catastrophic)
 {
     for(std::list<InputElement>::iterator it = m_listInput.begin(); it != m_listInput.end(); it++)
+    {
+        it->hw->handleError(errorOccurred, catastrophic);
+    }
+}
+
+void PCF8575I2C::handleErrorOutput(bool errorOccurred, bool catastrophic)
+{
+    for(std::list<OutputElement>::iterator it = m_listOutput.begin(); it != m_listOutput.end(); it++)
     {
         it->hw->handleError(errorOccurred, catastrophic);
     }
