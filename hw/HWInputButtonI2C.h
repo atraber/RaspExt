@@ -17,6 +17,7 @@ public:
     virtual QDomElement save(QDomElement* root, QDomDocument* document);
 
     void onInputPolled(bool state);
+    virtual void handleError(bool errorOccurred, bool catastrophic = false);
 
     int getPort() const { return m_port;}
     void setPort(unsigned int port) { m_port = port;}

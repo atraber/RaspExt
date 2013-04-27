@@ -33,6 +33,7 @@ private:
     void setI2C(I2CThread* i2cThread);
 
     void onOutputChanged(HWOutput *hw);
+    void handleError(bool errorOccurred, bool catastrophic = false);
 
     struct InputElement
     {

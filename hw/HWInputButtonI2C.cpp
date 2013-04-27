@@ -92,3 +92,8 @@ void HWInputButtonI2C::onInputPolled(bool state)
         this->inputChanged();
     }
 }
+
+void HWInputButtonI2C::handleError(bool errorOccurred, bool catastrophic)
+{
+    HWInput::handleError(errorOccurred, catastrophic);
+}

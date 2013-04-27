@@ -92,6 +92,9 @@ void HWInputFaderI2C::poll(I2CThread* i2cThread)
     if( !i2cThread->setSlaveAddress(m_slaveAddress) )
     {
         I2C_warn("Failed to talk to slave");
+
+        this->handleError(true);
+
         return;
     }
 
@@ -103,6 +106,9 @@ void HWInputFaderI2C::poll(I2CThread* i2cThread)
     if( !i2cThread->write(buf, 1) )
     {
         I2C_warn("Could not write to bus");
+
+        this->handleError(true);
+
         return;
     }
 
@@ -110,8 +116,11 @@ void HWInputFaderI2C::poll(I2CThread* i2cThread)
     if( !i2cThread->read(buf, 1) )
     {
         I2C_warn("Could not read from bus");
+
+        this->handleError(true);
         return;
     }
+    this->handleError(false);
 
     // convert ad value to percent
     unsigned int value = buf[0] * 100 / 255;

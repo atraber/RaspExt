@@ -31,7 +31,15 @@ public:
         Dummy = 0,
         I2C = 1,
         BtI2C = 2,
-        Bt = 3,
+        Bt = 3
+    };
+
+    enum ErrorLevel
+    {
+        OK = 0,
+        Warning = 1,
+        Critical = 2,
+        Failure = 3
     };
 
     HWInput();
@@ -50,12 +58,18 @@ public:
     void setOverride(bool b);
     bool getOverride() const;
 
+    ErrorLevel getErrorLevel() const { return m_errorLevel;}
+
     void registerInputListener(HWInputListener* listener);
     void unregisterInputListener(HWInputListener* listener);
 
 protected:
     virtual void inputChanged();
+    virtual void errorLevelChanged();
 
+    virtual void handleError(bool errorOccurred, bool catastrophic = false);
+
+    ErrorLevel m_errorLevel;
     bool m_bOverride;
     std::string m_name;
     std::list<HWInputListener*> m_listListeners;

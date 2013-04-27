@@ -147,3 +147,11 @@ void PCF8575I2C::onOutputChanged(HWOutput *hw)
     // after we have set the new port mask, we have to update the device as well
     this->updateI2C();
 }
+
+void PCF8575I2C::handleError(bool errorOccurred, bool catastrophic)
+{
+    for(std::list<InputElement>::iterator it = m_listInput.begin(); it != m_listInput.end(); it++)
+    {
+        it->hw->handleError(errorOccurred, catastrophic);
+    }
+}

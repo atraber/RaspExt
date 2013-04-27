@@ -11,6 +11,7 @@
 
 HWInput::HWInput()
 {
+    m_errorLevel = OK;
     m_bOverride = false;
 }
 
@@ -114,6 +115,7 @@ void HWInput::registerInputListener(HWInputListener *listener)
     m_listListeners.push_back(listener);
 
     listener->onInputChanged(this);
+    listener->onInputErrorChanged(this);
 }
 
 /**
@@ -135,6 +137,47 @@ void HWInput::inputChanged()
     for(std::list<HWInputListener*>::iterator it = m_listListeners.begin(); it != m_listListeners.end(); it++)
     {
         (*it)->onInputChanged(this);
+    }
+}
+
+/**
+ * @brief HWInput::inputChanged calls all registered inputListener, so that they can detect that the error level for this input has changed.
+ */
+void HWInput::errorLevelChanged()
+{
+    for(std::list<HWInputListener*>::iterator it = m_listListeners.begin(); it != m_listListeners.end(); it++)
+    {
+        (*it)->onInputErrorChanged(this);
+    }
+}
+
+void
+HWInput::handleError(bool errorOccurred, bool catastrophic)
+{
+    ErrorLevel newLevel = m_errorLevel;
+    if(errorOccurred)
+    {
+        if(catastrophic)
+            newLevel = Failure;
+        else if(m_errorLevel == OK)
+            newLevel = Warning;
+        else if(m_errorLevel == Warning)
+            newLevel = Critical;
+    }
+    else
+    {
+        if(m_errorLevel == Failure)
+            newLevel = Critical;
+        else if(m_errorLevel == Critical)
+            newLevel = Warning;
+        else if(m_errorLevel == Warning)
+            newLevel = OK;
+    }
+
+    if(newLevel != m_errorLevel)
+    {
+        m_errorLevel = newLevel;
+        this->errorLevelChanged();
     }
 }
 

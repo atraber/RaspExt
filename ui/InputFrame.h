@@ -16,12 +16,15 @@ public:
 
 signals:
     void onInputChangedSignal();
+    void onInputErrorChangedSignal();
 
 protected slots:
     virtual void onInputChangedGUI();
+    virtual void onInputErrorChangedGUI();
 
 private:
     void onInputChanged(HWInput *hw);
+    void onInputErrorChanged(HWInput *hw);
 
     HWInput* m_hw;
     bool m_GUIUpdatePending;
