@@ -2,9 +2,9 @@
     <rule>
         <condition>
             <type>input</type>
-            <name>remo 4</name>
+            <name>13 remote B</name>
             <subtype>Button</subtype>
-            <trigger>Pressed</trigger>
+            <trigger>Released</trigger>
         </condition>
         <action>
             <type>variable</type>
@@ -18,6 +18,7 @@
         </action>
         <name>fwd</name>
         <type>Normal</type>
+        <NoConcurrent>true</NoConcurrent>
     </rule>
     <rule>
         <condition>
@@ -27,26 +28,8 @@
             <trigger>Equal</trigger>
         </condition>
         <action>
-            <type>output</type>
-            <name>TEST</name>
-            <subtype>LED</subtype>
-            <value>50</value>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>500</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
             <type>output</type>
@@ -55,8 +38,18 @@
             <state>High</state>
         </action>
         <action>
+            <type>Music</type>
+            <Filename>/home/pi/Documents/RaspExt/Pluto_sound/winseln.mp3</Filename>
+            <MusicAction>Play</MusicAction>
+        </action>
+        <action>
             <type>sleep</type>
             <waitms>5000</waitms>
+        </action>
+        <action>
+            <type>Music</type>
+            <Filename></Filename>
+            <MusicAction>Stop</MusicAction>
         </action>
         <action>
             <type>output</type>
@@ -75,8 +68,18 @@
             <state>High</state>
         </action>
         <action>
+            <type>Music</type>
+            <Filename>/home/pi/Documents/RaspExt/Pluto_sound/schnueffeln_schluerfen.mp3</Filename>
+            <MusicAction>Play</MusicAction>
+        </action>
+        <action>
             <type>sleep</type>
             <waitms>7000</waitms>
+        </action>
+        <action>
+            <type>Music</type>
+            <Filename></Filename>
+            <MusicAction>Stop</MusicAction>
         </action>
         <action>
             <type>output</type>
@@ -85,22 +88,16 @@
             <state>Low</state>
         </action>
         <action>
-            <type>output</type>
-            <name>Kartensprudel</name>
-            <subtype>DCMotor</subtype>
-            <speed>95</speed>
-            <state>Forward</state>
+            <type>CallRule</type>
+            <name>kartensprudel start</name>
         </action>
         <action>
             <type>sleep</type>
             <waitms>2000</waitms>
         </action>
         <action>
-            <type>output</type>
-            <name>Kartensprudel</name>
-            <subtype>DCMotor</subtype>
-            <speed>0</speed>
-            <state>Brake</state>
+            <type>CallRule</type>
+            <name>kartensprudel stop</name>
         </action>
         <action>
             <type>sleep</type>
@@ -113,8 +110,18 @@
             <state>High</state>
         </action>
         <action>
+            <type>Music</type>
+            <Filename>/home/pi/Documents/RaspExt/Pluto_sound/schnueffeln_schluerfen.mp3</Filename>
+            <MusicAction>Play</MusicAction>
+        </action>
+        <action>
             <type>sleep</type>
             <waitms>7000</waitms>
+        </action>
+        <action>
+            <type>Music</type>
+            <Filename></Filename>
+            <MusicAction>Stop</MusicAction>
         </action>
         <action>
             <type>output</type>
@@ -123,25 +130,20 @@
             <state>Low</state>
         </action>
         <action>
-            <type>output</type>
-            <name>Kartensprudel</name>
-            <subtype>DCMotor</subtype>
-            <speed>95</speed>
-            <state>Forward</state>
+            <type>CallRule</type>
+            <name>kartensprudel start</name>
         </action>
         <action>
             <type>sleep</type>
             <waitms>2000</waitms>
         </action>
         <action>
-            <type>output</type>
-            <name>Kartensprudel</name>
-            <subtype>DCMotor</subtype>
-            <speed>0</speed>
-            <state>Brake</state>
+            <type>CallRule</type>
+            <name>kartensprudel stop</name>
         </action>
         <name>pluto 1</name>
         <type>Normal</type>
+        <NoConcurrent>true</NoConcurrent>
     </rule>
     <rule>
         <condition>
@@ -151,59 +153,28 @@
             <trigger>Equal</trigger>
         </condition>
         <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
-        </action>
-        <action>
-            <type>output</type>
-            <name>out3 walk</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
+            <type>CallRule</type>
+            <name>pluto walk start</name>
         </action>
         <action>
             <type>sleep</type>
             <waitms>4000</waitms>
         </action>
         <action>
-            <type>output</type>
-            <name>out3 walk</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
+            <type>CallRule</type>
+            <name>pluto walk end</name>
         </action>
         <name>pluto action 2</name>
         <type>Normal</type>
+        <NoConcurrent>true</NoConcurrent>
     </rule>
     <rule>
         <condition>
@@ -213,88 +184,64 @@
             <trigger>Equal</trigger>
         </condition>
         <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>100</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>100</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
             <type>output</type>
             <name>out2 wag</name>
             <subtype>GPO</subtype>
             <state>High</state>
+        </action>
+        <action>
+            <type>CallRule</type>
+            <name>pluto wag start</name>
         </action>
         <action>
             <type>sleep</type>
             <waitms>5000</waitms>
         </action>
         <action>
+            <type>CallRule</type>
+            <name>pluto wag end</name>
+        </action>
+        <action>
             <type>output</type>
             <name>out2 wag</name>
             <subtype>GPO</subtype>
             <state>Low</state>
         </action>
         <action>
+            <type>sleep</type>
+            <waitms>700</waitms>
+        </action>
+        <action>
             <type>output</type>
             <name>out3 walk</name>
             <subtype>GPO</subtype>
             <state>High</state>
+        </action>
+        <action>
+            <type>CallRule</type>
+            <name>pluto walk start</name>
         </action>
         <action>
             <type>sleep</type>
             <waitms>1000</waitms>
         </action>
         <action>
+            <type>CallRule</type>
+            <name>pluto walk end</name>
+        </action>
+        <action>
             <type>output</type>
             <name>out3 walk</name>
             <subtype>GPO</subtype>
@@ -305,12 +252,22 @@
             <name>out1 howl</name>
             <subtype>GPO</subtype>
             <state>High</state>
+        </action>
+        <action>
+            <type>Music</type>
+            <Filename>/home/pi/Documents/RaspExt/Pluto_sound/winseln.mp3</Filename>
+            <MusicAction>Play</MusicAction>
         </action>
         <action>
             <type>sleep</type>
             <waitms>5000</waitms>
         </action>
         <action>
+            <type>Music</type>
+            <Filename></Filename>
+            <MusicAction>Stop</MusicAction>
+        </action>
+        <action>
             <type>output</type>
             <name>out1 howl</name>
             <subtype>GPO</subtype>
@@ -323,8 +280,16 @@
             <state>High</state>
         </action>
         <action>
+            <type>CallRule</type>
+            <name>pluto walk start</name>
+        </action>
+        <action>
             <type>sleep</type>
             <waitms>3000</waitms>
+        </action>
+        <action>
+            <type>CallRule</type>
+            <name>pluto walk end</name>
         </action>
         <action>
             <type>output</type>
@@ -334,6 +299,7 @@
         </action>
         <name>pluto action 3</name>
         <type>Normal</type>
+        <NoConcurrent>true</NoConcurrent>
     </rule>
     <rule>
         <condition>
@@ -343,84 +309,20 @@
             <trigger>Equal</trigger>
         </condition>
         <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
-            <type>sleep</type>
-            <waitms>100</waitms>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>100</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>100</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>100</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>High</state>
-        </action>
-        <action>
-            <type>sleep</type>
-            <waitms>200</waitms>
-        </action>
-        <action>
-            <type>output</type>
-            <name>LED red</name>
-            <subtype>GPO</subtype>
-            <state>Low</state>
+            <type>CallRule</type>
+            <name>blink once</name>
         </action>
         <action>
             <type>output</type>
@@ -428,15 +330,20 @@
             <subtype>GPO</subtype>
             <state>High</state>
         </action>
+        <action>
+            <type>CallRule</type>
+            <name>pluto wag start</name>
+        </action>
         <name>pluto action 4</name>
         <type>Normal</type>
+        <NoConcurrent>true</NoConcurrent>
     </rule>
     <rule>
         <condition>
             <type>input</type>
-            <name>remo 6</name>
+            <name>11 remote A</name>
             <subtype>Button</subtype>
-            <trigger>Pressed</trigger>
+            <trigger>Released</trigger>
         </condition>
         <action>
             <type>variable</type>
@@ -444,8 +351,13 @@
             <operand>1</operand>
             <operator>Minus</operator>
         </action>
+        <action>
+            <type>sleep</type>
+            <waitms>5000</waitms>
+        </action>
         <name>back</name>
         <type>Normal</type>
+        <NoConcurrent>true</NoConcurrent>
     </rule>
     <rule>
         <condition>
@@ -460,24 +372,692 @@
             <subtype>GPO</subtype>
             <state>Low</state>
         </action>
+        <action>
+            <type>CallRule</type>
+            <name>pluto wag end</name>
+        </action>
         <name>pluto action 5</name>
         <type>Normal</type>
+        <NoConcurrent>true</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>40</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>50</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>60</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>70</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>80</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>90</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>100</speed>
+            <state>Reverse</state>
+        </action>
+        <name>pluto walk start</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>90</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>80</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>70</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>60</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>50</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>40</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>0</speed>
+            <state>Standby</state>
+        </action>
+        <name>pluto walk end</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>0</speed>
+            <state>Standby</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>40</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>50</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>60</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>70</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>80</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>90</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>100</speed>
+            <state>Forward</state>
+        </action>
+        <name>pluto wag start</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>100</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>90</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>80</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>70</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>60</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>50</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>40</speed>
+            <state>Forward</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>0</speed>
+            <state>Standby</state>
+        </action>
+        <name>pluto wag end 2</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>true</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>input</type>
+            <name>10 remote C</name>
+            <subtype>Button</subtype>
+            <trigger>Pressed</trigger>
+        </condition>
+        <action>
+            <type>CallRule</type>
+            <name>pluto wag start</name>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>6000</waitms>
+        </action>
+        <action>
+            <type>CallRule</type>
+            <name>pluto wag end</name>
+        </action>
+        <name>test</name>
+        <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>input</type>
+            <name>0 error pluto</name>
+            <subtype>Button</subtype>
+            <trigger>Pressed</trigger>
+        </condition>
+        <action>
+            <type>output</type>
+            <name>LED status</name>
+            <subtype>GPO</subtype>
+            <state>Low</state>
+        </action>
+        <action>
+            <type>output</type>
+            <name>error pluto vorgekommen</name>
+            <subtype>GPO</subtype>
+            <state>High</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>1000</waitms>
+        </action>
+        <name>error pluto</name>
+        <type>Normal</type>
+        <NoConcurrent>true</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>input</type>
+            <name>15 error Kartensprudel</name>
+            <subtype>Button</subtype>
+            <trigger>Pressed</trigger>
+        </condition>
+        <action>
+            <type>output</type>
+            <name>LED 1</name>
+            <subtype>GPO</subtype>
+            <state>Low</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>500</waitms>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>500</waitms>
+        </action>
+        <name>error kartensprudel</name>
+        <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>input</type>
+            <name>12 remote D</name>
+            <subtype>Button</subtype>
+            <trigger>Pressed</trigger>
+        </condition>
+        <action>
+            <type>Music</type>
+            <Filename>/home/pi/Documents/RaspExt/Pluto_sound/schnueffeln_schluerfen.mp3</Filename>
+            <MusicAction>Play</MusicAction>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>0</speed>
+            <state>Brake</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>50</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>0</speed>
+            <state>Standby</state>
+        </action>
+        <name>d bttn</name>
+        <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>0</speed>
+            <state>Standby</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>40</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>50</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>60</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>70</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>80</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>90</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>100</speed>
+            <state>Reverse</state>
+        </action>
+        <name>kartensprudel start</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>true</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>100</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>90</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>80</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>70</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>60</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>50</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>40</speed>
+            <state>Reverse</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>60</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>Kartensprudel</name>
+            <subtype>DCMotor</subtype>
+            <speed>0</speed>
+            <state>Standby</state>
+        </action>
+        <name>kartensprudel stop</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>true</NoConcurrent>
     </rule>
     <rule>
         <condition>
             <type>variable</type>
             <name>State</name>
-            <value>1</value>
+            <value>0</value>
             <trigger>Equal</trigger>
         </condition>
         <action>
             <type>output</type>
-            <name>TEST</name>
-            <subtype>LED</subtype>
-            <value>50</value>
+            <name>LED status</name>
+            <subtype>GPO</subtype>
+            <state>High</state>
         </action>
-        <name>TEST</name>
+        <name>condition 0</name>
         <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>output</type>
+            <name>LED status</name>
+            <subtype>GPO</subtype>
+            <state>Toggle</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>200</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>LED status</name>
+            <subtype>GPO</subtype>
+            <state>Toggle</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>200</waitms>
+        </action>
+        <name>blink once</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>true</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>output</type>
+            <name>dc A</name>
+            <subtype>DCMotor</subtype>
+            <speed>0</speed>
+            <state>Standby</state>
+        </action>
+        <name>pluto wag end</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>true</NoConcurrent>
     </rule>
     <variable>
         <name>State</name>
