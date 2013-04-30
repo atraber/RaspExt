@@ -81,7 +81,8 @@ public:
 
     void conditionChanged(Condition* cond);
 
-    void init(ConfigManager* config);
+    void initConditions(ConfigManager* config);
+    void initActions(ConfigManager* config);
     void deinit();
 
     std::string getName() const { return m_name;}

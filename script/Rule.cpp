@@ -219,15 +219,17 @@ bool Rule::conditionsTrue()
     return ret;
 }
 
-void Rule::init(ConfigManager *config)
+void Rule::initConditions(ConfigManager *config)
 {
-    // Actions and therefore Outputs have to be initialized before the conditions, because the inputs can fire as soon as they are initialized
-    for(std::vector<Action*>::iterator it = m_listActions.begin(); it != m_listActions.end(); it++)
+    for(std::vector<Condition*>::iterator it = m_listConditions.begin(); it != m_listConditions.end(); it++)
     {
         (*it)->init(config);
     }
+}
 
-    for(std::vector<Condition*>::iterator it = m_listConditions.begin(); it != m_listConditions.end(); it++)
+void Rule::initActions(ConfigManager *config)
+{
+    for(std::vector<Action*>::iterator it = m_listActions.begin(); it != m_listActions.end(); it++)
     {
         (*it)->init(config);
     }

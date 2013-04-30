@@ -235,9 +235,15 @@ void Script::clearVariables()
 
 void Script::init(ConfigManager *config)
 {
+    // Actions and therefore Outputs have to be initialized before the conditions, because the inputs can fire as soon as they are initialized
     for(std::vector<Rule*>::iterator ruleIt = m_listRules.begin(); ruleIt != m_listRules.end(); ruleIt++)
     {
-        (*ruleIt)->init(config);
+        (*ruleIt)->initActions(config);
+    }
+
+    for(std::vector<Rule*>::iterator ruleIt = m_listRules.begin(); ruleIt != m_listRules.end(); ruleIt++)
+    {
+        (*ruleIt)->initConditions(config);
     }
 }
 
