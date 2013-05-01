@@ -7,7 +7,7 @@ OutputFrame::OutputFrame(HWOutput *hw)
 {
     m_hw = hw;
     QObject::connect(this, SIGNAL(onOutputChangedSignal()), this, SLOT(onOutputChangedGUI()), Qt::QueuedConnection);
-    QObject::connect(this, SIGNAL(onOutputErrorChangedSignal()), this, SLOT(onOutnputErrorChangedGUI()), Qt::QueuedConnection);
+    QObject::connect(this, SIGNAL(onOutputErrorChangedSignal()), this, SLOT(onOutputErrorChangedGUI()), Qt::QueuedConnection);
 }
 
 void OutputFrame::onOutputChanged(HWOutput *hw)
@@ -24,10 +24,10 @@ void OutputFrame::onOutputChangedGUI()
 void OutputFrame::onOutputErrorChanged(HWOutput *hw)
 {
     pi_assert(hw == m_hw);
-    emit onOutnputErrorChangedGUI();
+    emit onOutputErrorChangedSignal();
 }
 
-void OutputFrame::onOutnputErrorChangedGUI()
+void OutputFrame::onOutputErrorChangedGUI()
 {
     switch(m_hw->getErrorLevel())
     {

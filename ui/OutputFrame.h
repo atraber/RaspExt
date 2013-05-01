@@ -20,7 +20,7 @@ signals:
 
 protected slots:
     virtual void onOutputChangedGUI();
-    virtual void onOutnputErrorChangedGUI();
+    virtual void onOutputErrorChangedGUI();
 
 private:
     void onOutputChanged(HWOutput* hw);
