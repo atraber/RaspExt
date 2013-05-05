@@ -1,0 +1,147 @@
+<script>
+    <rule>
+        <condition>
+            <type>variable</type>
+            <name>State</name>
+            <value>1</value>
+            <trigger>Equal</trigger>
+        </condition>
+        <action>
+            <type>CallRule</type>
+            <name>blink 1 non working</name>
+        </action>
+        <name>state =1 non working</name>
+        <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>variable</type>
+            <name>State</name>
+            <value>0</value>
+            <trigger>Equal</trigger>
+        </condition>
+        <action>
+            <type>output</type>
+            <name>LED status</name>
+            <subtype>GPO</subtype>
+            <state>Low</state>
+        </action>
+        <action>
+            <type>output</type>
+            <name>LED orange</name>
+            <subtype>GPO</subtype>
+            <state>Low</state>
+        </action>
+        <action>
+            <type>output</type>
+            <name>LED rot</name>
+            <subtype>GPO</subtype>
+            <state>Low</state>
+        </action>
+        <name>condition 0</name>
+        <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>output</type>
+            <name>LED status</name>
+            <subtype>GPO</subtype>
+            <state>High</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>200</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>LED status</name>
+            <subtype>GPO</subtype>
+            <state>Low</state>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>200</waitms>
+        </action>
+        <action>
+            <type>output</type>
+            <name>LED status</name>
+            <subtype>GPO</subtype>
+            <state>High</state>
+        </action>
+        <name>blink once</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>variable</type>
+            <name>State</name>
+            <value>1</value>
+            <trigger>Equal</trigger>
+        </condition>
+        <action>
+            <type>CallRule</type>
+            <name>blink once</name>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>2000</waitms>
+        </action>
+        <action>
+            <type>CallRule</type>
+            <name>blink 1 non working</name>
+        </action>
+        <name>blink 1 non working</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>variable</type>
+            <name>State</name>
+            <value>2</value>
+            <trigger>Equal</trigger>
+        </condition>
+        <action>
+            <type>CallRule</type>
+            <name>blink once</name>
+        </action>
+        <action>
+            <type>sleep</type>
+            <waitms>2000</waitms>
+        </action>
+        <action>
+            <type>CallRule</type>
+            <name>blink 2 (working)</name>
+        </action>
+        <name>blink 2 (working)</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>variable</type>
+            <name>State</name>
+            <value>2</value>
+            <trigger>Equal</trigger>
+        </condition>
+        <action>
+            <type>sleep</type>
+            <waitms>5</waitms>
+        </action>
+        <action>
+            <type>CallRule</type>
+            <name>blink 2 (working)</name>
+        </action>
+        <name>state = 2 working</name>
+        <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <variable>
+        <name>State</name>
+        <defaultValue>0</defaultValue>
+    </variable>
+    <description>demonstrates race condition </description>
+</script>
