@@ -98,7 +98,8 @@ SOURCES += main.cpp \
     hw/HWOutputStepperBt.cpp \
     hw/BTClassicThread.cpp \
     hw/BTThread.cpp \
-    hw/BLEThread.cpp
+    hw/BLEThread.cpp \
+    util/Logger.cpp
 HEADERS += ui/MainWindow.h \
     ui/InputFaderFrame.h \
     ui/ScriptsTableModel.h \
@@ -194,7 +195,8 @@ HEADERS += ui/MainWindow.h \
     hw/BLEThread.h \
     hw/BTClassicThread.h \
     hw/BTThread.h \
-    hw/HWOutputLCD.h
+    hw/HWOutputLCD.h \
+    util/Logger.h
 FORMS += ui/MainWindow.ui \
     ui/RuleDialog.ui \
     ui/ScriptDialog.ui \

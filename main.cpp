@@ -5,8 +5,14 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "util/Logger.h"
+
 int main(int argc, char *argv[])
 {
+    LOG_DEBUG(Logger::Misc, "HALLO DU");
+    LOG_DEBUGF(Logger::Misc, "HALLO DU %s", "da");
+
+
     /*
      * Not needed, if user is in group i2c
      * Maybe expand this and check first if the interface can be accessed
