@@ -1,0 +1,65 @@
+<script>
+    <rule>
+        <condition>
+            <type>input</type>
+            <name>11 remote A</name>
+            <subtype>Button</subtype>
+            <trigger>Released</trigger>
+        </condition>
+        <action>
+            <type>CallRule</type>
+            <name>must be called fcn a (working with no condition)</name>
+        </action>
+        <name>btn a</name>
+        <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>input</type>
+            <name>13 remote B</name>
+            <subtype>Button</subtype>
+            <trigger>Released</trigger>
+        </condition>
+        <action>
+            <type>CallRule</type>
+            <name>must be called b (with condition not working)</name>
+        </action>
+        <name>btn b</name>
+        <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <action>
+            <type>output</type>
+            <name>LED orange</name>
+            <subtype>GPO</subtype>
+            <state>High</state>
+        </action>
+        <name>must be called fcn a (working with no condition)</name>
+        <type>MustBeCalled</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <rule>
+        <condition>
+            <type>variable</type>
+            <name>tmp</name>
+            <value>0</value>
+            <trigger>Equal</trigger>
+        </condition>
+        <action>
+            <type>output</type>
+            <name>LED rot</name>
+            <subtype>GPO</subtype>
+            <state>High</state>
+        </action>
+        <name>must be called b (with condition not working)</name>
+        <type>Normal</type>
+        <NoConcurrent>false</NoConcurrent>
+    </rule>
+    <variable>
+        <name>tmp</name>
+        <defaultValue>0</defaultValue>
+    </variable>
+    <description>test for must be called conditions </description>
+</script>

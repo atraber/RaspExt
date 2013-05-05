@@ -77,7 +77,7 @@
         <Port>4</Port>
     </output>
     <output>
-        <name>LED 5</name>
+        <name>LED orange</name>
         <type>GPO</type>
         <hwtype>I2C</hwtype>
         <SlaveAddress>39</SlaveAddress>
@@ -88,21 +88,14 @@
         <type>GPO</type>
     </output>
     <output>
-        <name>LED 6</name>
-        <type>GPO</type>
-        <hwtype>I2C</hwtype>
-        <SlaveAddress>39</SlaveAddress>
-        <Port>6</Port>
-    </output>
-    <output>
-        <name>LED 7</name>
+        <name>LED rot</name>
         <type>GPO</type>
         <hwtype>I2C</hwtype>
         <SlaveAddress>39</SlaveAddress>
         <Port>7</Port>
     </output>
     <output>
-        <name>LED 1</name>
+        <name>error Kartensprudel vorgekommen</name>
         <type>GPO</type>
     </output>
 </config>
