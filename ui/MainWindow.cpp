@@ -20,6 +20,7 @@
 #include <QMessageBox>
 #include <QDomDocument>
 #include <QFile>
+#include <QStringListModel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -59,6 +60,23 @@ MainWindow::MainWindow(QWidget *parent) :
     // Settings page
     ui->comboStartupConfig->setModel(&m_configTableModel);
     ui->comboStartupScript->setModel(&m_scriptsModel);
+
+    // error facility list
+    QStringList strFacilityList;
+    for(unsigned int i = 0; i < Logger::N_FACILITIES; i++)
+        strFacilityList.append( QString::fromStdString( Logger::FacilityToString((Logger::Facility)i) ) );
+
+    m_listFacilityModel.setStringList(strFacilityList);
+    ui->listFacilities->setModel(&m_listFacilityModel);
+
+    // error level list
+    QStringList strLevelList;
+    strLevelList.append("Debug");
+    strLevelList.append("Warn");
+    strLevelList.append("Error");
+    m_listLevelModel.setStringList(strLevelList);
+
+    ui->listLevels->setModel(&m_listLevelModel);
 
 
     // connect all signals-slots
@@ -122,6 +140,28 @@ MainWindow::MainWindow(QWidget *parent) :
         {
             defaultScript = elem.text();
         }
+        else if(elem.tagName().toLower().compare("error") == 0)
+        {
+            // parse all information related to error handling here
+            QItemSelectionModel* facilitySelModel = ui->listFacilities->selectionModel();
+
+            facilitySelModel->reset();
+
+            QDomElement errorEl = elem.firstChildElement();
+            while(!errorEl.isNull())
+            {
+                if(errorEl.tagName().toLower().compare("facility") == 0)
+                {
+                    Logger::Facility facility = Logger::StringToFacility(errorEl.text().toStdString());
+                    if( facility < Logger::N_FACILITIES )
+                    {
+                        facilitySelModel->select(QItemSelection( ui->listFacilities->model()->index(facility, 0), ui->listFacilities->model()->index(facility, 0) ),
+                                                 QItemSelectionModel::Select);
+                    }
+                }
+                errorEl = errorEl.nextSiblingElement();
+            }
+        }
         elem = elem.nextSiblingElement();
     }
 
@@ -179,6 +219,24 @@ MainWindow::~MainWindow()
             defaultElem.appendChild(script);
         }
 
+        // save error handling stuff
+        // parse all information related to error handling here
+        QDomElement error = document.createElement("error");
+
+        QItemSelectionModel* facilitySelModel = ui->listFacilities->selectionModel();
+
+        QModelIndexList selectedFacilities = facilitySelModel->selectedRows();
+        for(QModelIndexList::Iterator it = selectedFacilities.begin(); it != selectedFacilities.end(); it++)
+        {
+            QDomElement xmlFacility = document.createElement("facility");
+            QDomText xmlFacilityText = document.createTextNode( QString::fromStdString( Logger::FacilityToString( (Logger::Facility)(*it).row() ) ) );
+            xmlFacility.appendChild(xmlFacilityText);
+            error.appendChild(xmlFacility);
+        }
+
+        defaultElem.appendChild(error);
+
+        // save the file to disk
         file.write(document.toByteArray(4));
 
         file.close();

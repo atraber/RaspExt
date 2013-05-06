@@ -1,6 +1,8 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include <string>
+
 class Logger
 {
 public:
@@ -17,6 +19,9 @@ public:
     static void debugf(Facility facility, const char* file, const char* function, int line, const char *format, ...);
     static void warnf(Facility facility, const char* file, const char* function, int line, const char *format, ...);
     static void errorf(Facility facility, const char* file, const char* function, int line, const char *format, ...);
+
+    static std::string FacilityToString(Facility facility);
+    static Facility StringToFacility(std::string str);
 private:
     Logger();
     ~Logger();

@@ -176,8 +176,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>419</width>
-                 <height>633</height>
+                 <width>98</width>
+                 <height>28</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -210,8 +210,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>420</width>
-                 <height>633</height>
+                 <width>98</width>
+                 <height>28</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -245,8 +245,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>419</width>
-                 <height>633</height>
+                 <width>98</width>
+                 <height>28</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -597,10 +597,24 @@
                <item>
                 <layout class="QGridLayout" name="gridLayout_6">
                  <item row="0" column="0">
-                  <widget class="QListView" name="listView"/>
+                  <widget class="QListView" name="listFacilities">
+                   <property name="selectionMode">
+                    <enum>QAbstractItemView::MultiSelection</enum>
+                   </property>
+                   <property name="selectionBehavior">
+                    <enum>QAbstractItemView::SelectRows</enum>
+                   </property>
+                  </widget>
                  </item>
                  <item row="1" column="0">
-                  <widget class="QListView" name="listView_2"/>
+                  <widget class="QListView" name="listLevels">
+                   <property name="selectionMode">
+                    <enum>QAbstractItemView::MultiSelection</enum>
+                   </property>
+                   <property name="selectionBehavior">
+                    <enum>QAbstractItemView::SelectRows</enum>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>

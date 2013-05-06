@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QStringListModel>
 
 #include "hw/HWInput.h"
 #include "hw/HWOutput.h"
@@ -65,6 +66,8 @@ private:
     ScriptInputTableModel m_scriptInputModel;
     ScriptOutputTableModel m_scriptOutputModel;
     ScriptVariableTableModel m_scriptVariableModel;
+    QStringListModel m_listLevelModel;
+    QStringListModel m_listFacilityModel;
 
     ConfigTableModel m_configTableModel;
 
