@@ -95,6 +95,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->buttonStop, SIGNAL(clicked()), this, SLOT(stopScript()));
     connect(ui->buttonPlayPause, SIGNAL(clicked()), this, SLOT(startPauseScript()));
 
+    connect(ui->listFacilities->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(updateErrorFacilities()));
+
 
     // load last settings
     QFile file( "defaults.xml" );
@@ -741,5 +743,16 @@ void MainWindow::deleteConfig()
         }
 
         m_configTableModel.removeRow(indices.front().row());
+    }
+}
+
+void
+MainWindow::updateErrorFacilities()
+{
+    QItemSelectionModel* model = ui->listFacilities->selectionModel();
+
+    for(unsigned int i = 0; i < Logger::N_FACILITIES; i++)
+    {
+        Logger::logFacility((Logger::Facility)i, model->isRowSelected(i, QModelIndex()));
     }
 }

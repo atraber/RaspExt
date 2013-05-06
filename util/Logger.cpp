@@ -7,7 +7,14 @@
 
 Logger::Logger()
 {
+    m_bLogDebug = true;
+    m_bLogError = true;
+    m_bLogWarn = true;
 
+    m_bUseStdIO = true;
+
+    for(unsigned int i = 0; i < N_FACILITIES; i++)
+        m_bLogFacility[i] = true;
 }
 
 Logger::~Logger()
@@ -25,6 +32,9 @@ Logger::getInst()
 void
 Logger::debugf(Facility facility, const char* file, const char* function, int line, const char *format, ...)
 {
+    if( !isFacilityLogged(facility) || !logDebug())
+        return;
+
     char str[255];
     unsigned int len;
 
@@ -44,6 +54,9 @@ Logger::debugf(Facility facility, const char* file, const char* function, int li
 void
 Logger::warnf(Facility facility, const char* file, const char* function, int line, const char *format, ...)
 {
+    if( !isFacilityLogged(facility) || !logWarn())
+        return;
+
     char str[255];
     unsigned int len;
 
@@ -63,6 +76,9 @@ Logger::warnf(Facility facility, const char* file, const char* function, int lin
 void
 Logger::errorf(Facility facility, const char* file, const char* function, int line, const char *format, ...)
 {
+    if( !isFacilityLogged(facility) || !logError())
+        return;
+
     char str[255];
     unsigned int len;
 
@@ -82,7 +98,66 @@ Logger::errorf(Facility facility, const char* file, const char* function, int li
 void
 Logger::print(const char *msg)
 {
-    printf(msg);
+    if(m_bUseStdIO)
+        printf(msg);
+}
+
+void
+Logger::logFacility(Facility facility, bool b)
+{
+    if(facility < N_FACILITIES)
+        Logger::getInst()->m_bLogFacility[facility] = b;
+}
+
+void
+Logger::logDebug(bool b)
+{
+    Logger* L = Logger::getInst();
+
+    L->m_bLogDebug = b;
+}
+
+bool
+Logger::logDebug()
+{
+    return Logger::getInst()->m_bLogDebug;
+}
+
+void
+Logger::logWarn(bool b)
+{
+    Logger* L = Logger::getInst();
+
+    L->m_bLogWarn = b;
+}
+
+bool
+Logger::logWarn()
+{
+    return Logger::getInst()->m_bLogWarn;
+}
+
+void
+Logger::logError(bool b)
+{
+    Logger* L = Logger::getInst();
+
+    L->m_bLogError = b;
+}
+
+bool
+Logger::logError()
+{
+    return Logger::getInst()->m_bLogError;
+}
+
+bool
+Logger::isFacilityLogged(Facility facility)
+{
+    if(facility >= N_FACILITIES)
+        return false;
+
+    return Logger::getInst()->m_bLogFacility[facility];
 }
 
 Logger::Facility

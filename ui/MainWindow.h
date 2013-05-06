@@ -53,6 +53,8 @@ private slots:
     void selectConfig();
     void deleteConfig();
 
+    void updateErrorFacilities();
+
 private:
     void updateScriptState();
     bool checkScript(Script* script);
