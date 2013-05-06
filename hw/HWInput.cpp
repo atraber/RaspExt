@@ -66,7 +66,7 @@ HWInput* HWInput::load(QDomElement *root)
     {
         if(name.empty())
         {
-            pi_warn("Could not create new input, name was empty");
+            LOG_WARN(Logger::Misc, "Could not create new input, name was empty");
 
             delete hw;
             return NULL;
@@ -192,7 +192,7 @@ std::string HWInput::HWInputTypeToString(HWInputType type)
         return "Fader";
         break;
     default:
-        pi_warn("Invalid type");
+        LOG_WARN(Logger::Misc, "Invalid type");
         return "";
         break;
     }

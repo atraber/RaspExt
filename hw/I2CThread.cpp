@@ -217,13 +217,13 @@ void I2CThread::run()
         m_handle = open("/dev/i2c-1", O_RDWR);
         break;
     default:
-        pi_warn("Unkown raspberry revision, aborting i2c");
+        LOG_WARN(Logger::I2C, "Unkown raspberry revision, aborting i2c");
         return;
     }
 
     if(m_handle < 0)
     {
-        pi_warn("Could not open i2c-interface");
+        LOG_WARN(Logger::I2C, "Could not open i2c-interface");
         return;
     }
 

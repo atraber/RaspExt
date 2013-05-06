@@ -61,7 +61,7 @@ HWOutput* HWOutput::load(QDomElement *root)
                 hw = HWOutputGPO::load(root);
                 break;
             default:
-                pi_warn("Unsupported output type");
+                LOG_WARN(Logger::Misc, "Unsupported output type");
                 break;
             }
         }
@@ -78,7 +78,7 @@ HWOutput* HWOutput::load(QDomElement *root)
     {
         if(name.empty())
         {
-            pi_warn("Could not load output, name was empty");
+            LOG_WARN(Logger::Misc, "Could not load output, name was empty");
             delete hw;
             return NULL;
         }
@@ -209,7 +209,7 @@ std::string HWOutput::HWOutputTypeToString(HWOutputType type)
     case GPO:
         return "GPO";
     default:
-        pi_warn("Invalid type");
+        LOG_WARN(Logger::Misc, "Invalid type");
         return "";
     }
 }

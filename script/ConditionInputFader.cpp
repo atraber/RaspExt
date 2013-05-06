@@ -169,7 +169,7 @@ std::string ConditionInputFader::TriggerToString(Trigger trigger)
         break;
     }
 
-    pi_warn("Received invalid trigger");
+    LOG_WARN(Logger::Script, "Received invalid trigger");
     return "";
 }
 

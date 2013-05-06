@@ -209,7 +209,7 @@ bool ActionOutputStepperSetParam::execute(unsigned int)
 {
     if(m_hw == NULL)
     {
-        pi_warn("HW does not exist, cannot execute action");
+        LOG_WARN(Logger::Script, "HW does not exist, cannot execute action");
         return true; // still return true as false would mean that all following actions should not be executed
     }
 

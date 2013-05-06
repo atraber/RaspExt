@@ -167,7 +167,7 @@ void RuleTimerThread::run()
 
             if(nanosleep(&sleep, NULL)  == -1)
             {
-                //pi_warn("Interrupted by signal");
+                //LOG_WARN(Logger::Script, "Interrupted by signal");
             }
             continue;
         }
@@ -191,7 +191,7 @@ void RuleTimerThread::run()
             if( nanosleep(&waitTime, NULL) < 0)
             {
                 // we have been interrupted by a signal, normally this happens to wake this thread
-                //pi_warn("Interrupted by signal");
+                //LOG_WARN(Logger::Script, "Interrupted by signal");
 
                 // go back to start and check queue
                 continue;

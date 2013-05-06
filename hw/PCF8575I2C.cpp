@@ -76,7 +76,7 @@ void PCF8575I2C::setI2C(I2CThread *i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
         this->handleErrorOutput(true);
         return;
     }
@@ -86,7 +86,7 @@ void PCF8575I2C::setI2C(I2CThread *i2cThread)
 
     if( !m_i2cThread->write(buf, 2) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
         this->handleErrorOutput(true);
         return;
     }
@@ -100,7 +100,7 @@ void PCF8575I2C::poll(I2CThread* i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
         this->handleErrorInput(true);
         return;
     }
@@ -108,7 +108,7 @@ void PCF8575I2C::poll(I2CThread* i2cThread)
     // read back value
     if( !m_i2cThread->read(buf, 2) )
     {
-        I2C_warn("Could not read from bus");
+        LOG_WARN(Logger::I2C, "Could not read from bus");
         this->handleErrorInput(true);
         return;
     }

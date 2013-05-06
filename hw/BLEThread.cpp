@@ -405,7 +405,7 @@ bool
 BLEThread::bluezRegisterWatcher()
 {
     if(m_servicePath == NULL)
-        pi_warn("Service path is not defined");
+        LOG_WARN(Logger::BT, "Service path is not defined");
 
     GError* error = NULL;
 
@@ -468,7 +468,7 @@ BLEThread::bluezUnregisterWatcher()
 {
     if(m_servicePath == NULL)
     {
-        pi_warn("Not all paths are defined");
+        LOG_WARN(Logger::BT, "Not all paths are defined");
         return false;
     }
 
@@ -527,7 +527,7 @@ bool BLEThread::bluezCheckConnection()
 {
     if(m_devicePath == NULL)
     {
-        pi_warn("Device path is empty");
+        LOG_WARN(Logger::BT, "Device path is empty");
         return false;
     }
 
@@ -706,13 +706,13 @@ BLEThread::bluezDisconnectHandler(bool connected)
 {
     if(!connected)
     {
-        pi_message("Connection lost, retrying\n");
+        LOG_DEBUG(Logger::BT, "Connection lost, retrying\n");
 
         this->bluezUnregisterWatcher();
         this->bluezRegisterWatcher();
     }
     else
-        pi_message("Connection established\n");
+        LOG_DEBUG(Logger::BT, "Connection established\n");
 }
 
 bool
@@ -804,7 +804,7 @@ BLEThread::bluezFindDevice()
 {
     if(m_adapterPath == NULL)
     {
-        pi_warn("Adapter path is empty");
+        LOG_WARN(Logger::BT, "Adapter path is empty");
         return false;
     }
 
@@ -869,48 +869,48 @@ BLEThread::bluezFindDevice()
 void
 BLEThread::addInput(BTI2CPolling* hw, unsigned int freq)
 {
-    pi_warn("Not yet implemented");
+    LOG_WARN(Logger::BT, "Not yet implemented");
 }
 
 void
 BLEThread::removeInput(BTI2CPolling* hw)
 {
-    pi_warn("Not yet implemented");
+    LOG_WARN(Logger::BT, "Not yet implemented");
 }
 
 void
 BLEThread::addOutput(std::function<void (BTThread*)> func)
 {
-    pi_warn("Not yet implemented");
+    LOG_WARN(Logger::BT, "Not yet implemented");
 }
 
 void
 BLEThread::addInputPCF8575(HWInput* hw, int slaveAddress, unsigned int port)
 {
-    pi_warn("Not yet implemented");
+    LOG_WARN(Logger::BT, "Not yet implemented");
 }
 
 void
 BLEThread::removeInputPCF8575(HWInput* hw, int slaveAddress)
 {
-    pi_warn("Not yet implemented");
+    LOG_WARN(Logger::BT, "Not yet implemented");
 }
 
 void
 BLEThread::addOutputPCF8575(HWOutput* hw, int slaveAddress, unsigned int port)
 {
-    pi_warn("Not yet implemented");
+    LOG_WARN(Logger::BT, "Not yet implemented");
 }
 
 void
 BLEThread::removeOutputPCF8575(HWOutput* hw, int slaveAddress)
 {
-    pi_warn("Not yet implemented");
+    LOG_WARN(Logger::BT, "Not yet implemented");
 }
 
 // ATTENTION: USE ONLY IN BTTHREAD!!!!
 void
 BLEThread::sendI2CPackets(BTI2CPacket* packets, unsigned int num)
 {
-    pi_warn("Not yet implemented");
+    LOG_WARN(Logger::BT, "Not yet implemented");
 }

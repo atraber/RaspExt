@@ -27,7 +27,7 @@ bool Config::load(std::string name)
     QFile file(filename.c_str());
     if(!file.open(QIODevice::ReadOnly))
     {
-        pi_warn("Could not open file");
+        LOG_WARN(Logger::Misc, "Could not open file");
         return false;
     }
 
@@ -39,7 +39,7 @@ bool Config::load(std::string name)
     // check if this is a valid configuration file
     if(docElem.tagName().toLower().compare("config") != 0)
     {
-        pi_warn("Invalid configuration file: tag \"config\" is missing");
+        LOG_WARN(Logger::Misc, "Invalid configuration file: tag \"config\" is missing");
         return false;
     }
 
@@ -92,7 +92,7 @@ bool Config::save()
     QFile file(filename.c_str());
     if(!file.open(QIODevice::WriteOnly))
     {
-        pi_warn("Could not open file");
+        LOG_WARN(Logger::Misc, "Could not open file");
         return false;
     }
 

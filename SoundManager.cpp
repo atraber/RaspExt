@@ -15,14 +15,14 @@ SoundManager::SoundManager()
     //Initialize SDL audio
     if(SDL_Init(SDL_INIT_AUDIO) != 0)
     {
-        pi_message("Unable to initialize SDL: %s\n", SDL_GetError());
+        LOG_ERROR(Logger::Misc, "Unable to initialize SDL: %s\n", SDL_GetError());
         return;
     }
 
     //Initialize SDL_mixer with our chosen audio settings
     if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0)
     {
-        pi_message("Unable to initialize audio: %s\n", Mix_GetError());
+        LOG_ERROR(Logger::Misc, "Unable to initialize audio: %s\n", Mix_GetError());
         return;
     }
 }
@@ -47,13 +47,13 @@ void SoundManager::play(std::string filename, int loop)
     m_music = Mix_LoadMUS(filename.c_str());
     if(m_music == NULL)
     {
-        pi_message("Unable to load file: %s\n", Mix_GetError());
+        LOG_WARN(Logger::Misc, "Unable to load file: %s\n", Mix_GetError());
         return;
     }
 
     if( Mix_PlayMusic(m_music, loop) != 0 )
     {
-        pi_warn("Could not play music");
+        LOG_WARN(Logger::Misc, "Could not play music %s", filename.c_str());
     }
 }
 

@@ -62,7 +62,7 @@ BTThread* BTThread::load(QDomElement* root)
 
     if(btthread->getName().empty() || btthread->getBTAddr().empty())
     {
-        pi_warn("Could not load bluetooth, name and/or address for this module were empty");
+        LOG_WARN(Logger::BT, "Could not load bluetooth, name and/or address for this module were empty");
 
         delete btthread;
         return NULL;
@@ -130,7 +130,7 @@ void BTThread::setBTAddr(std::string addr)
 
     if(!valid)
     {
-        pi_warn("Bluetooth address is not valid");
+        LOG_WARN(Logger::BT, "Bluetooth address is not valid");
         return;
     }
 

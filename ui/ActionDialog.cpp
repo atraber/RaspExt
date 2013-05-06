@@ -89,7 +89,7 @@ void ActionDialog::okPressed()
     m_action = ((IActionWidget*)m_baseWidget)->assemble();
 
     if(m_action == NULL)
-        pi_warn("Assembling Action failed");
+        LOG_WARN(Logger::UI, "Assembling Action failed");
 
     this->done(Accepted);
 }
@@ -188,7 +188,7 @@ void ActionOutputWidget::outputChanged(int index)
         break;
 
     default:
-        pi_warn("Unknown output type");
+        LOG_WARN(Logger::UI, "Unknown output type");
         break;
     }
 

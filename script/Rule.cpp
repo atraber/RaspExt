@@ -253,6 +253,8 @@ void Rule::executeActions(unsigned int start)
 {
     pi_assert(start <= m_listActions.size());
 
+    LOG_DEBUG(Logger::Script, "Rule %s: executeActions beginning with nr %i", m_name.c_str(), start);
+
     // start executing at start-element
     for(; start < m_listActions.size(); start++)
     {
@@ -276,6 +278,8 @@ void Rule::executeActions(unsigned int start)
 void Rule::call()
 {
     pi_assert(m_type == MustBeCalled);
+
+    LOG_DEBUG(Logger::Script, "Rule %s was called, evaluating conditions", m_name.c_str());
 
     if(this->conditionsTrue())
         this->executeActions();
@@ -303,7 +307,7 @@ std::string Rule::TypeToString(Type type)
         return "MustBeCalled";
         break;
     default:
-        pi_warn("Invalid type");
+        LOG_WARN(Logger::Script, "Invalid type");
         return "";
         break;
     }

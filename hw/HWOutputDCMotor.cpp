@@ -127,7 +127,7 @@ std::string HWOutputDCMotor::MotorStateToString(MotorState type)
         return "Brake";
         break;
     default:
-        pi_warn("Received invalid type");
+        LOG_WARN(Logger::Misc, "Received invalid type");
         return "";
     }
 }

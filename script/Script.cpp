@@ -30,7 +30,7 @@ Script* Script::load(std::string name)
     QFile file(filename.c_str());
     if(!file.open(QIODevice::ReadOnly))
     {
-        pi_message("Could not open file %s", filename.c_str());
+        LOG_ERROR(Logger::Script, "Could not open file %s", filename.c_str());
         return NULL;
     }
 
@@ -42,7 +42,7 @@ Script* Script::load(std::string name)
     // check if this is a valid script file
     if(docElem.tagName().toLower().compare("script") != 0)
     {
-        pi_message("Invalid script file %s: tag \"script\" is missing", filename.c_str());
+        LOG_ERROR(Logger::Script, "Invalid script file %s: tag \"script\" is missing", filename.c_str());
         return NULL;
     }
 
@@ -92,7 +92,7 @@ bool Script::save()
     QFile file(filename.c_str());
     if(!file.open(QIODevice::WriteOnly))
     {
-        pi_warn("Could not open file");
+        LOG_WARN(Logger::Script, "Could not open file");
         return false;
     }
 
@@ -272,7 +272,7 @@ std::list<HWInput*> Script::getInputList() const
         return m_config->getInputList();
     else
     {
-        pi_warn("Config not set, returning empty list");
+        LOG_WARN(Logger::Script, "Config not set, returning empty list");
         return std::list<HWInput*>();
     }
 }
@@ -283,7 +283,7 @@ std::list<HWOutput*> Script::getOutputList() const
         return m_config->getOutputList();
     else
     {
-        pi_warn("Config not set, returning empty list");
+        LOG_WARN(Logger::Script, "Config not set, returning empty list");
         return std::list<HWOutput*>();
     }
 }

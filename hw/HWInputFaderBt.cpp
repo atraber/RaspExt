@@ -39,7 +39,7 @@ HWInput* HWInputFaderBt::load(QDomElement *root)
     if( hw->m_slaveAddress > 127 || hw->m_slaveAddress < 0 ||
             hw->m_channel < 0 || hw->m_channel > 7 || hw->m_btName.empty())
     {
-        pi_warn("Invalid parameters");
+        LOG_WARN(Logger::BT, "Invalid parameters");
         delete hw;
         return NULL;
     }
@@ -85,7 +85,7 @@ bool HWInputFaderBt::init(ConfigManager* config)
     // if we cannot find the bluetooth board, it does not exist and we should fail
     if(m_btThread == NULL)
     {
-        pi_warn("Bluetooth board does not exist");
+        LOG_WARN(Logger::BT, "Bluetooth board does not exist");
 
         return false;
     }

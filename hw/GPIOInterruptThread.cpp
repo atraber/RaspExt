@@ -13,7 +13,7 @@ GPIOInterruptThread::GPIOInterruptThread()
     m_epfd = epoll_create(2);
 
     if(m_epfd < 0)
-        pi_error("epoll_create has failed");
+        LOG_ERROR(Logger::Misc, "epoll_create has failed");
 
     m_bStop = false;
 
@@ -45,7 +45,7 @@ void GPIOInterruptThread::addGPIOInterrupt(HWInputButtonGPIO *hw)
     // invalid file handle
     if(fd < 0)
     {
-        pi_warn("Received invalid file handle");
+        LOG_WARN(Logger::Misc, "Received invalid file handle");
         return;
     }
 
@@ -56,7 +56,7 @@ void GPIOInterruptThread::addGPIOInterrupt(HWInputButtonGPIO *hw)
 
     int ret = epoll_ctl(m_epfd, EPOLL_CTL_ADD, fd, &event);
     if(ret != 0)
-        pi_error("epoll_ctl has failed");
+        LOG_ERROR(Logger::Misc, "epoll_ctl has failed");
 }
 
 void GPIOInterruptThread::removeGPIOInterrupt(HWInputButtonGPIO *hw)
@@ -66,13 +66,13 @@ void GPIOInterruptThread::removeGPIOInterrupt(HWInputButtonGPIO *hw)
     // invalid file handle
     if(fd < 0)
     {
-        pi_warn("Received invalid file handle");
+        LOG_WARN(Logger::Misc, "Received invalid file handle");
         return;
     }
 
     int ret = epoll_ctl(m_epfd, EPOLL_CTL_DEL, fd, NULL);
     if(ret != 0)
-        pi_error("epoll_ctl has failed");
+        LOG_ERROR(Logger::Misc, "epoll_ctl has failed");
 }
 
 void GPIOInterruptThread::run()

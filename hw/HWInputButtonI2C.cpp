@@ -33,7 +33,7 @@ HWInput* HWInputButtonI2C::load(QDomElement *root)
     // check for invalid parameters
     if( hw->m_slaveAddress > 127 || hw->m_slaveAddress < 0 || hw->m_port > 15)
     {
-        pi_warn("Invalid i2c parameters");
+        LOG_WARN(Logger::I2C, "Invalid i2c parameters");
         return NULL;
     }
 

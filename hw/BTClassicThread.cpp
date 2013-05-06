@@ -139,7 +139,7 @@ void BTClassicThread::connectBt()
 
         if(m_socket == -1)
         {
-            pi_warn("Could not open bluetooth socket");
+            LOG_WARN(Logger::BT, "Could not open bluetooth socket");
             return;
         }
 
@@ -166,7 +166,7 @@ void BTClassicThread::connectBt()
     }
     while(status == -1);
 
-    pi_message("Connected to bluetooth board %s\n", m_name.c_str());
+    LOG_DEBUG(Logger::BT, "Connected to bluetooth board %s\n", m_name.c_str());
 
     // clean lists as the information in them is most likely invalid now
     m_listSeq.clear();
@@ -183,7 +183,7 @@ void BTClassicThread::disconnectBt()
 
 void BTClassicThread::reconnectBt()
 {
-    pi_message("Lost connection to bluetooth board %s\nTrying to reconnect\n", m_name.c_str());
+    LOG_DEBUG(Logger::BT, "Lost connection to bluetooth board %s\nTrying to reconnect\n", m_name.c_str());
 
     this->disconnectBt();
     this->connectBt();
@@ -490,7 +490,7 @@ void BTClassicThread::packetHandler(char* buffer, unsigned int length)
             BTI2CPacket packet;
             if( !packet.parse(buffer + 3, packetLength - 3) )
             {
-                pi_warn("Parsing packet failed");
+                LOG_WARN(Logger::BT, "Parsing packet failed");
                 return;
             }
 

@@ -36,7 +36,7 @@ HWOutput* HWOutputGPOBt::load(QDomElement *root)
     // check for invalid parameters
     if( hw->m_slaveAddress > 127 || hw->m_slaveAddress < 0 || hw->m_port > 15 || hw->m_btName.empty())
     {
-        pi_warn("Invalid i2c parameters");
+        LOG_WARN(Logger::BT, "Invalid i2c parameters");
         return NULL;
     }
 
@@ -81,7 +81,7 @@ void HWOutputGPOBt::init(ConfigManager *config)
     // if we cannot find the bluetooth board, it does not exist and we should fail
     if(btThread == NULL)
     {
-        pi_warn("Bluetooth board does not exist");
+        LOG_WARN(Logger::BT, "Bluetooth board does not exist");
 
         return;
     }

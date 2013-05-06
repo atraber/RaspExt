@@ -82,7 +82,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QFile file( "defaults.xml" );
     if(!file.open(QIODevice::ReadOnly))
     {
-        pi_warn("Could not open defaults file. Does it exist?");
+        LOG_WARN(Logger::UI, "Could not open defaults file. Does it exist?");
         return;
     }
 
@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // check if this is a valid defaults file
     if(docElem.tagName().toLower().compare("default") != 0)
     {
-        pi_warn("Invalid defaults file: tag \"default\" is missing");
+        LOG_WARN(Logger::UI, "Invalid defaults file: tag \"default\" is missing");
         return;
     }
 
@@ -185,7 +185,7 @@ MainWindow::~MainWindow()
     }
     else
     {
-        pi_warn("Could not open defaults file. Do you have read-write permissions to ./defaults.xml?");
+        LOG_WARN(Logger::UI, "Could not open defaults file. Do you have read-write permissions to ./defaults.xml?");
     }
 
     m_config.deinit();
@@ -486,7 +486,7 @@ void MainWindow::addInput(HWInput* hw)
         break;
 
     default:
-        pi_warn("Requested GUI-object for unknown input type");
+        LOG_WARN(Logger::UI, "Requested GUI-object for unknown input type");
         break;
     }
 
@@ -524,7 +524,7 @@ void MainWindow::addOutput(HWOutput* hw)
         frame = new OutputGPOFrame((HWOutputGPO*)hw);
         break;
     default:
-        pi_warn("Requested GUI-object for unknown output type");
+        LOG_WARN(Logger::UI, "Requested GUI-object for unknown output type");
         break;
     }
 

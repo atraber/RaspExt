@@ -21,7 +21,7 @@ HWOutput* HWOutputStepperI2C::load(QDomElement *root)
     // check for invalid parameters
     if( hw->m_slaveAddress > 127 || hw->m_slaveAddress < 0)
     {
-        pi_warn("Invalid i2c parameters");
+        LOG_WARN(Logger::I2C, "Invalid i2c parameters");
         return NULL;
     }
 
@@ -132,7 +132,7 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
 
         this->handleError(true);
 
@@ -144,7 +144,7 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
 
         this->handleError(true);
 
@@ -154,7 +154,7 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
     // read back value
     if( !m_i2cThread->read(buf, 8) )
     {
-        I2C_warn("Could not read from bus");
+        LOG_WARN(Logger::I2C, "Could not read from bus");
 
         this->handleError(true);
 
@@ -191,7 +191,7 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
 
         this->handleError(true);
 
@@ -201,7 +201,7 @@ void HWOutputStepperI2C::poll(I2CThread *i2cThread)
     // read back value
     if( !m_i2cThread->read(buf, 8) )
     {
-        I2C_warn("Could not read from bus");
+        LOG_WARN(Logger::I2C, "Could not read from bus");
 
         this->handleError(true);
 
@@ -231,7 +231,7 @@ void HWOutputStepperI2C::testBemfI2C(I2CThread *i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
         this->handleError(true);
         return;
     }
@@ -240,7 +240,7 @@ void HWOutputStepperI2C::testBemfI2C(I2CThread *i2cThread)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
         this->handleError(true);
         return;
     }
@@ -255,7 +255,7 @@ void HWOutputStepperI2C::softStopI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
         this->handleError(true);
         return;
     }
@@ -264,7 +264,7 @@ void HWOutputStepperI2C::softStopI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
         this->handleError(true);
         return;
     }
@@ -279,7 +279,7 @@ void HWOutputStepperI2C::setPositionI2C(I2CThread *i2cThread, short position, bo
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
         this->handleError(true);
         return;
     }
@@ -293,7 +293,7 @@ void HWOutputStepperI2C::setPositionI2C(I2CThread *i2cThread, short position, bo
 
     if( !m_i2cThread->write(buf, 5) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
         this->handleError(true);
         return;
     }
@@ -313,7 +313,7 @@ void HWOutputStepperI2C::setDualPositionI2C(I2CThread *i2cThread,
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
         this->handleError(true);
         return;
     }
@@ -330,7 +330,7 @@ void HWOutputStepperI2C::setDualPositionI2C(I2CThread *i2cThread,
 
     if( !m_i2cThread->write(buf, 8) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
         this->handleError(true);
         return;
     }
@@ -345,7 +345,7 @@ void HWOutputStepperI2C::resetPositionI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
         this->handleError(true);
         return;
     }
@@ -355,7 +355,7 @@ void HWOutputStepperI2C::resetPositionI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
         this->handleError(true);
         return;
     }
@@ -370,7 +370,7 @@ void HWOutputStepperI2C::runVelocityI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
         this->handleError(true);
         return;
     }
@@ -379,7 +379,7 @@ void HWOutputStepperI2C::runVelocityI2C(I2CThread *i2cThread, bool override)
 
     if( !m_i2cThread->write(buf, 1) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
         this->handleError(true);
         return;
     }
@@ -397,7 +397,7 @@ void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool ove
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
         this->handleError(true);
         return;
     }
@@ -424,7 +424,7 @@ void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool ove
 
     if( !m_i2cThread->write(buf, 8) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
         this->handleError(true);
         return;
     }
@@ -449,7 +449,7 @@ void HWOutputStepperI2C::setParamI2C(I2CThread *i2cThread, Param param, bool ove
 
     if( !m_i2cThread->write(buf, 8) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
         this->handleError(true);
         return;
     }

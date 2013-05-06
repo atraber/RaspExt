@@ -147,7 +147,7 @@ std::string ActionVariable::OperatorToString(Operator op)
     case Minus:
         return "Minus";
     default:
-        pi_warn("Received invalid operator");
+        LOG_WARN(Logger::Script, "Received invalid operator");
         return "";
     }
 }

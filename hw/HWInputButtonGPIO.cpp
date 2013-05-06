@@ -30,7 +30,7 @@ bool HWInputButtonGPIO::init(ConfigManager* config)
     int fd = open("/sys/class/gpio/export", O_WRONLY);
     if(fd < 0)
     {
-        pi_warn("Could not open sysfs");
+        LOG_WARN(Logger::Misc, "Could not open sysfs");
         return false;
     }
 
@@ -46,7 +46,7 @@ bool HWInputButtonGPIO::init(ConfigManager* config)
     fd = open(path, O_WRONLY);
     if(fd < 0)
     {
-        pi_warn("Could not open sysfs");
+        LOG_WARN(Logger::Misc, "Could not open sysfs");
         return false;
     }
 
@@ -57,7 +57,7 @@ bool HWInputButtonGPIO::init(ConfigManager* config)
 
     if(retval != (int)str.length())
     {
-        pi_warn("Could not write to sysfs");
+        LOG_WARN(Logger::Misc, "Could not write to sysfs");
         return false;
     }
 
@@ -66,7 +66,7 @@ bool HWInputButtonGPIO::init(ConfigManager* config)
     fd = open(path, O_WRONLY);
     if(fd < 0)
     {
-        pi_warn("Could not open sysfs");
+        LOG_WARN(Logger::Misc, "Could not open sysfs");
         return false;
     }
 
@@ -77,7 +77,7 @@ bool HWInputButtonGPIO::init(ConfigManager* config)
 
     if(retval != (int)str.length())
     {
-        pi_warn("Could not write to sysfs");
+        LOG_WARN(Logger::Misc, "Could not write to sysfs");
         return false;
     }
 
@@ -85,7 +85,7 @@ bool HWInputButtonGPIO::init(ConfigManager* config)
     m_fd = open(path, O_RDONLY);
     if(m_fd < 0)
     {
-        pi_warn("Could not open sysfs");
+        LOG_WARN(Logger::Misc, "Could not open sysfs");
         return false;
     }
 

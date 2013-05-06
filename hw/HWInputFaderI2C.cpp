@@ -34,7 +34,7 @@ HWInput* HWInputFaderI2C::load(QDomElement *root)
     if( hw->m_slaveAddress > 127 || hw->m_slaveAddress < 0 ||
             hw->m_channel < 0 || hw->m_channel > 7)
     {
-        pi_warn("Invalid i2c parameters");
+        LOG_WARN(Logger::I2C, "Invalid i2c parameters");
         delete hw;
         return NULL;
     }
@@ -91,7 +91,7 @@ void HWInputFaderI2C::poll(I2CThread* i2cThread)
 
     if( !i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
 
         this->handleError(true);
 
@@ -105,7 +105,7 @@ void HWInputFaderI2C::poll(I2CThread* i2cThread)
 
     if( !i2cThread->write(buf, 1) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
 
         this->handleError(true);
 
@@ -115,7 +115,7 @@ void HWInputFaderI2C::poll(I2CThread* i2cThread)
     // read back value
     if( !i2cThread->read(buf, 1) )
     {
-        I2C_warn("Could not read from bus");
+        LOG_WARN(Logger::I2C, "Could not read from bus");
 
         this->handleError(true);
         return;

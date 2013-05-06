@@ -27,7 +27,7 @@ HWOutput* HWOutputDCMotorI2C::load(QDomElement *root)
     // check for invalid parameters
     if( hw->m_slaveAddress > 127 || hw->m_slaveAddress < 0)
     {
-        I2C_warn("Invalid i2c parameters");
+        LOG_WARN(Logger::I2C, "Invalid i2c parameters");
         return NULL;
     }
 
@@ -59,7 +59,7 @@ void HWOutputDCMotorI2C::setI2C(I2CThread* i2cThread)
 
     if( !m_i2cThread->setSlaveAddress(m_slaveAddress) )
     {
-        I2C_warn("Failed to talk to slave");
+        LOG_WARN(Logger::I2C, "Failed to talk to slave");
 
         this->handleError(true);
 
@@ -73,7 +73,7 @@ void HWOutputDCMotorI2C::setI2C(I2CThread* i2cThread)
 
     if( !m_i2cThread->write(buf, 2) )
     {
-        I2C_warn("Could not write to bus");
+        LOG_WARN(Logger::I2C, "Could not write to bus");
 
         this->handleError(true);
 

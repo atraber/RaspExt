@@ -39,7 +39,7 @@ HWInput* HWInputButtonBtGPIO::load(QDomElement *root)
     // check for invalid parameters
     if( hw->m_pin > 7 || hw->m_pinGroup > 4 || hw->m_btName.empty())
     {
-        pi_warn("Invalid bluetooth parameters");
+        LOG_WARN(Logger::BT, "Invalid bluetooth parameters");
         return NULL;
     }
 
@@ -84,7 +84,7 @@ bool HWInputButtonBtGPIO::init(ConfigManager* config)
     // if we cannot find the bluetooth board, it does not exist and we should fail
     if(m_btThread == NULL)
     {
-        pi_warn("Bluetooth board does not exist");
+        LOG_WARN(Logger::BT, "Bluetooth board does not exist");
 
         return false;
     }

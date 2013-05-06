@@ -67,7 +67,7 @@ void ConditionDialog::okPressed()
     m_condition = ((IConditionWidget*)m_baseWidget)->assemble();
 
     if(m_condition == NULL)
-        pi_warn("Assembling Condition failed");
+        LOG_WARN(Logger::UI, "Assembling Condition failed");
 
     this->done(Accepted);
 }
@@ -152,7 +152,7 @@ void ConditionInputWidget::inputChanged(int index)
         m_layout->addWidget(m_baseWidget, 2, 0, 1, 2);
         break;
     default:
-        pi_warn("Unsupported input type");
+        LOG_WARN(Logger::UI, "Unsupported input type");
         break;
     }
 }

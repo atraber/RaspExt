@@ -404,7 +404,7 @@ void ConfigInputTableModel::add(HWInput *hw)
     }
     else
     {
-        pi_warn("Received null argument");
+        LOG_WARN(Logger::UI, "Received null argument");
     }
 }
 
@@ -515,7 +515,7 @@ void ConfigOutputTableModel::add(HWOutput *hw)
     }
     else
     {
-        pi_warn("Received null argument");
+        LOG_WARN(Logger::UI, "Received null argument");
     }
 }
 
@@ -621,7 +621,7 @@ void ConfigBTThreadTableModel::add(BTThread *btThread)
     }
     else
     {
-        pi_warn("Received null argument");
+        LOG_WARN(Logger::UI, "Received null argument");
     }
 }
 
