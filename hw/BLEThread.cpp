@@ -337,7 +337,7 @@ BLEThread::setState(unsigned char state)
     {
         if( (*it).pinGroup == 2 )
         {
-            (*it).hw->setValue( (state & (1 << (*it).pin)) == 0);
+            (*it).hw->setValue( (state & (1 << (*it).pin)) != 0);
         }
     }
 }
@@ -353,8 +353,8 @@ BLEThread::run()
         return;
 
     // we want to take a look at only one special characteristic
-    m_servicePath = g_strconcat(m_devicePath, "/service0007", NULL);
-    gchar* char_path = g_strconcat(m_servicePath, "/characteristic0009", NULL);
+    m_servicePath = g_strconcat(m_devicePath, "/service0023", NULL);
+    gchar* char_path = g_strconcat(m_servicePath, "/characteristic0025", NULL);
 
     GVariant* var = bluez_characteristic_get_value(m_connection, char_path);
     if(var != NULL)
