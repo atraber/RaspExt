@@ -49,7 +49,10 @@ private:
     void run();
 
     bool bluezInit();
+    bool bluezCreateDevice();
     bool bluezFindDevice();
+    void bluezRemoveDevice();
+    bool bluezDiscoverCharacteristics();
     bool bluezCreateWatcher();
     void bluezCleanup();
     void bluezDestroyWatcher();

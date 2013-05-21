@@ -122,7 +122,6 @@ handle_method_call (GDBusConnection       *connection,
 
                 thread->setState(g_variant_get_byte(var_state));
 
-
                 for(unsigned int i = 0; i < g_variant_n_children(var_child); i++)
                 {
                     GVariant* var_inner_child = g_variant_get_child_value(var_child, i);
@@ -130,6 +129,7 @@ handle_method_call (GDBusConnection       *connection,
                     if( g_variant_type_equal(g_variant_get_type(var_inner_child), G_VARIANT_TYPE_BYTE) )
                         g_printf("%02x ", g_variant_get_byte(var_inner_child));
                 }
+
 
                 g_printf("\n");
             }
@@ -349,11 +349,19 @@ BLEThread::run()
     if(!this->bluezInit())
         return;
 
-    if(!this->bluezFindDevice())
+    if(this->bluezFindDevice())
+    {
+        this->bluezRemoveDevice();
+    }
+
+    if(!this->bluezCreateDevice())
         return;
 
     // we want to take a look at only one special characteristic
     m_servicePath = g_strconcat(m_devicePath, "/service0023", NULL);
+
+    this->bluezDiscoverCharacteristics();
+
     gchar* char_path = g_strconcat(m_servicePath, "/characteristic0025", NULL);
 
     GVariant* var = bluez_characteristic_get_value(m_connection, char_path);
@@ -575,13 +583,13 @@ bool BLEThread::bluezCheckConnection()
 
             if( !g_variant_get_boolean(var_bool) )
             {
-                g_printf("Not connected, retrying\n");
+                LOG_DEBUG(Logger::BT, "Not connected, retrying\n");
 
                 this->bluezUnregisterWatcher();
                 this->bluezRegisterWatcher();
             }
             else
-                g_printf("Connected\n");
+                LOG_DEBUG(Logger::BT, "Connected\n");
         }
 
         g_variant_unref(var_child);
@@ -638,6 +646,185 @@ void
 BLEThread::bluezDestroyWatcher()
 {
     g_bus_unown_name(m_busOwnerID);
+}
+
+void
+BLEThread::bluezRemoveDevice()
+{
+    GError* error = NULL;
+
+    GDBusMessage* call_message = g_dbus_message_new_method_call("org.bluez",
+                                                       m_adapterPath,
+                                                       "org.bluez.Adapter",
+                                                       "RemoveDevice");
+    if(call_message == NULL)
+    {
+        LOG_WARN(Logger::BT, "g_dbus_message_new_method_call failed\n");
+
+        return;
+    }
+
+    GVariant* variant_body = g_variant_new("(o)", m_devicePath);
+
+    g_dbus_message_set_body(call_message, variant_body);
+
+    GDBusMessage* reply_message = g_dbus_connection_send_message_with_reply_sync(m_connection,
+                                                                          call_message,
+                                                                          G_DBUS_SEND_MESSAGE_FLAGS_NONE,
+                                                                          -1,
+                                                                          NULL,
+                                                                          NULL,
+                                                                          &error);
+    if(reply_message == NULL)
+    {
+        LOG_WARN(Logger::BT, "g_dbus_connection_send_message_with_reply_sync failed\n");
+
+        return;
+    }
+
+    if(g_dbus_message_get_message_type(reply_message) == G_DBUS_MESSAGE_TYPE_ERROR)
+    {
+        LOG_WARN(Logger::BT, "Error occured");
+
+        g_dbus_message_to_gerror(reply_message, &error);
+        LOG_WARN(Logger::BT, "Error invoking g_dbus_connection_send_message_with_reply_sync: %s", error->message);
+
+        g_error_free(error);
+
+        return;
+    }
+
+    // cleanup
+    g_object_unref(call_message);
+    g_object_unref(reply_message);
+}
+
+bool BLEThread::bluezCreateDevice()
+{
+    if(m_adapterPath == NULL)
+    {
+        LOG_WARN(Logger::BT, "Adapter path is empty");
+        return false;
+    }
+
+    LOG_DEBUG(Logger::BT, "Trying to create device");
+
+    GError* error = NULL;
+
+    GDBusMessage* call_message = g_dbus_message_new_method_call("org.bluez",
+                                                       m_adapterPath,
+                                                       "org.bluez.Adapter",
+                                                       "CreateDevice");
+    if(call_message == NULL)
+    {
+        return false;
+    }
+
+    GVariant* variant_addr = g_variant_new_string(m_btaddr.c_str());
+    GVariant* variant_body = g_variant_new_tuple(&variant_addr, 1);
+
+    g_dbus_message_set_body(call_message, variant_body);
+
+    GDBusMessage* reply_message = g_dbus_connection_send_message_with_reply_sync(m_connection,
+                                                                          call_message,
+                                                                          G_DBUS_SEND_MESSAGE_FLAGS_NONE,
+                                                                          -1,
+                                                                          NULL,
+                                                                          NULL,
+                                                                          &error);
+
+    if(reply_message == NULL)
+    {
+        LOG_WARN(Logger::BT, "bluez_create_device: Failed");
+
+        return false;
+    }
+
+    if(g_dbus_message_get_message_type(reply_message) == G_DBUS_MESSAGE_TYPE_ERROR)
+    {
+        g_dbus_message_to_gerror(reply_message, &error);
+        LOG_WARN(Logger::BT, "Error invoking g_dbus_connection_send_message_with_reply_sync: %s", error->message);
+
+        g_error_free(error);
+
+        return false;
+    }
+
+    GVariant* variant = g_dbus_message_get_body(reply_message);
+
+    // get first child, as this is the object path of the default interface of bluez
+    GVariant* var_child = g_variant_get_child_value(variant, 0);
+
+    const gchar* tmp_path = g_variant_get_string(var_child, NULL);
+
+    // copy content of tmp_path to obj_path, as tmp_path gets freed after unref of the variant
+    //gchar* obj_path = g_strdup(tmp_path);
+
+    // cleanup
+    g_variant_unref(var_child);
+
+    g_object_unref(call_message);
+    g_object_unref(reply_message);
+
+    LOG_DEBUG(Logger::BT, "Device successfully created");
+
+    return true;
+}
+
+
+bool
+BLEThread::bluezDiscoverCharacteristics()
+{
+    if(m_servicePath == NULL)
+    {
+        LOG_WARN(Logger::BT, "Service path is empty");
+        return false;
+    }
+
+    GError* error = NULL;
+
+    GDBusMessage* call_message = g_dbus_message_new_method_call("org.bluez",
+                                                       m_servicePath,
+                                                       "org.bluez.Characteristic",
+                                                       "DiscoverCharacteristics");
+    if(call_message == NULL)
+    {
+        LOG_WARN(Logger::BT, "g_dbus_message_new_method_call failed\n");
+
+        return false;
+    }
+
+    GDBusMessage* reply_message = g_dbus_connection_send_message_with_reply_sync(m_connection,
+                                                                          call_message,
+                                                                          G_DBUS_SEND_MESSAGE_FLAGS_NONE,
+                                                                          -1,
+                                                                          NULL,
+                                                                          NULL,
+                                                                          &error);
+    if(reply_message == NULL)
+    {
+        LOG_WARN(Logger::BT, "g_dbus_connection_send_message_with_reply_sync failed\n");
+
+        return false;
+    }
+
+    if(g_dbus_message_get_message_type(reply_message) == G_DBUS_MESSAGE_TYPE_ERROR)
+    {
+        LOG_WARN(Logger::BT, "Error occured\n");
+
+        g_dbus_message_to_gerror(reply_message, &error);
+        LOG_WARN(Logger::BT, "Error invoking g_dbus_connection_send_message_with_reply_sync: %s\n", error->message);
+
+        g_error_free(error);
+
+        return false;
+    }
+
+    // cleanup
+    g_object_unref(call_message);
+    g_object_unref(reply_message);
+
+    return true;
 }
 
 /*******************************************************************************************************
