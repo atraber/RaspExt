@@ -54,6 +54,7 @@ private slots:
     void deleteConfig();
 
     void updateErrorFacilities();
+    void updateErrorLevels();
 
 private:
     void updateScriptState();

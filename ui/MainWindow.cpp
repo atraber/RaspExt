@@ -96,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->buttonPlayPause, SIGNAL(clicked()), this, SLOT(startPauseScript()));
 
     connect(ui->listFacilities->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(updateErrorFacilities()));
+    connect(ui->listLevels->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(updateErrorLevels()));
 
 
     // load last settings
@@ -146,8 +147,11 @@ MainWindow::MainWindow(QWidget *parent) :
         {
             // parse all information related to error handling here
             QItemSelectionModel* facilitySelModel = ui->listFacilities->selectionModel();
+            QItemSelectionModel* errorLevelSelModel = ui->listLevels->selectionModel();
 
+            // Facilities and error levels
             facilitySelModel->reset();
+            errorLevelSelModel->reset();
 
             QDomElement errorEl = elem.firstChildElement();
             while(!errorEl.isNull())
@@ -160,6 +164,23 @@ MainWindow::MainWindow(QWidget *parent) :
                         facilitySelModel->select(QItemSelection( ui->listFacilities->model()->index(facility, 0), ui->listFacilities->model()->index(facility, 0) ),
                                                  QItemSelectionModel::Select);
                     }
+                }
+                else if(errorEl.tagName().toLower().compare("level") == 0)
+                {
+                    QString level = errorEl.text().toLower();
+
+                    if(level.compare("debug") == 0)
+                        errorLevelSelModel->select(QItemSelection( ui->listFacilities->model()->index(0, 0),
+                                                                   ui->listFacilities->model()->index(0, 0) ),
+                                                   QItemSelectionModel::Select);
+                    else if(level.compare("warn") == 0)
+                        errorLevelSelModel->select(QItemSelection( ui->listFacilities->model()->index(1, 0),
+                                                                   ui->listFacilities->model()->index(1, 0) ),
+                                                   QItemSelectionModel::Select);
+                    else if(level.compare("error") == 0)
+                        errorLevelSelModel->select(QItemSelection( ui->listFacilities->model()->index(2, 0),
+                                                                   ui->listFacilities->model()->index(2, 0) ),
+                                                   QItemSelectionModel::Select);
                 }
                 errorEl = errorEl.nextSiblingElement();
             }
@@ -234,6 +255,26 @@ MainWindow::~MainWindow()
             QDomText xmlFacilityText = document.createTextNode( QString::fromStdString( Logger::FacilityToString( (Logger::Facility)(*it).row() ) ) );
             xmlFacility.appendChild(xmlFacilityText);
             error.appendChild(xmlFacility);
+        }
+
+        QItemSelectionModel* errorLevelSelModel = ui->listLevels->selectionModel();
+
+        QModelIndexList selectedLevels = errorLevelSelModel->selectedRows();
+        for(QModelIndexList::Iterator it = selectedLevels.begin(); it != selectedLevels.end(); it++)
+        {
+            QDomElement xmlLevel = document.createElement("level");
+            QDomText xmlLevelText;
+
+            if( it->row() == 0)
+                xmlLevelText = document.createTextNode( "Debug" );
+            else if( it->row() == 1)
+                xmlLevelText = document.createTextNode( "Warn" );
+            else if( it->row() == 2)
+                xmlLevelText = document.createTextNode( "Error" );
+
+
+            xmlLevel.appendChild(xmlLevelText);
+            error.appendChild(xmlLevel);
         }
 
         defaultElem.appendChild(error);
@@ -755,4 +796,14 @@ MainWindow::updateErrorFacilities()
     {
         Logger::logFacility((Logger::Facility)i, model->isRowSelected(i, QModelIndex()));
     }
+}
+
+void
+MainWindow::updateErrorLevels()
+{
+    QItemSelectionModel* model = ui->listFacilities->selectionModel();
+
+    Logger::logDebug(model->isRowSelected(0, QModelIndex()));
+    Logger::logWarn(model->isRowSelected(1, QModelIndex()));
+    Logger::logError(model->isRowSelected(2, QModelIndex()));
 }
