@@ -6,7 +6,7 @@ CONFIG += link_pkgconfig
 QT += xml
 LIBS += -lbluetooth
 LIBS += -lSDL_mixer -lSDL -lrt
-PKGCONFIG += glib-2.0 gio-2.0
+PKGCONFIG += glib-2.0
 TARGET = RASP
 TEMPLATE = app
 SOURCES += main.cpp \
@@ -99,7 +99,12 @@ SOURCES += main.cpp \
     hw/BTClassicThread.cpp \
     hw/BTThread.cpp \
     hw/BLEThread.cpp \
-    util/Logger.cpp
+    util/Logger.cpp \
+    hw/ble/attrib/gattrib.c \
+    hw/ble/attrib/gatt.c \
+    hw/ble/attrib/att.c \
+    hw/ble/btio/btio.c \
+    hw/ble/attrib/gatt_helper.c
 HEADERS += ui/MainWindow.h \
     ui/InputFaderFrame.h \
     ui/ScriptsTableModel.h \
@@ -196,7 +201,14 @@ HEADERS += ui/MainWindow.h \
     hw/BTClassicThread.h \
     hw/BTThread.h \
     hw/HWOutputLCD.h \
-    util/Logger.h
+    util/Logger.h \
+    hw/ble/attrib/gatt-service.h \
+    hw/ble/attrib/gattrib.h \
+    hw/ble/attrib/gatt.h \
+    hw/ble/attrib/att-database.h \
+    hw/ble/attrib/att.h \
+    hw/ble/btio/btio.h \
+    hw/ble/attrib/gatt_helper.h
 FORMS += ui/MainWindow.ui \
     ui/RuleDialog.ui \
     ui/ScriptDialog.ui \

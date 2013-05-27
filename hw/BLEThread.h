@@ -6,6 +6,9 @@
 #include <glib.h>
 #include <gio/gio.h>
 
+#include "hw/ble/attrib/gattrib.h"
+static void helper_events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data);
+
 class BLEThread : public BTThread
 {
 public:
@@ -42,27 +45,15 @@ public:
     void sendI2CPackets(BTI2CPacket* packets, unsigned int num);
 
 
-    // TODO: should be private
+    // TODO: should be private, does this make sense?
     void setState(unsigned char state);
+
+    void bleConnect();
+    void bleConnectCb(GIOChannel* io, GError* err);
+    void bleChannelWatcher(GIOChannel *chan, GIOCondition cond);
 private:
     static void* run_internal(void* arg);
     void run();
-
-    bool bluezInit();
-    bool bluezCreateDevice();
-    bool bluezFindDevice();
-    void bluezRemoveDevice();
-    bool bluezDiscoverCharacteristics();
-    bool bluezCreateWatcher();
-    void bluezCleanup();
-    void bluezDestroyWatcher();
-
-    bool bluezRegisterWatcher();
-    bool bluezRegisterDisconnectHandler();
-    bool bluezUnregisterWatcher();
-    void bluezUnregisterDisconnectHandler();
-    bool bluezCheckConnection();
-    void bluezDisconnectHandler(bool connected);
 
     struct GPInput
     {
@@ -74,23 +65,14 @@ private:
     std::list<GPInput> m_listGPInput;
 
     GMainLoop* m_loop;
-    GDBusConnection* m_connection;
-    guint m_busOwnerID;
-    guint m_disconnectSignalID;
-    gchar* m_servicePath;
-    gchar* m_watcherPath;
-    gchar* m_devicePath;
-    gchar* m_adapterPath;
+    GIOChannel* m_iochan;
 
-    friend gboolean check_connection_helper(gpointer data);
-    friend void
-    handle_disconnect_helper(GDBusConnection       *connection,
-                            const gchar           *sender,
-                            const gchar           *object_path,
-                            const gchar           *interface_name,
-                            const gchar           *signal_name,
-                            GVariant              *parameters,
-                            gpointer               user_data);
+    char* m_opt_dst;
+    char* m_opt_dst_type;
+    char* m_opt_sec_level;
+    GAttrib* m_attrib;
+
+    friend void helper_events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data);
 };
 
 #endif // BLETHREAD_H
