@@ -32,7 +32,7 @@ Logger::getInst()
 void
 Logger::debugf(Facility facility, const char* file, const char* function, int line, const char *format, ...)
 {
-    if( !isFacilityLogged(facility) || !logDebug())
+    if( !isFacilityLogged(facility) || !Logger::logDebug())
         return;
 
     char str[255];
@@ -54,7 +54,7 @@ Logger::debugf(Facility facility, const char* file, const char* function, int li
 void
 Logger::warnf(Facility facility, const char* file, const char* function, int line, const char *format, ...)
 {
-    if( !isFacilityLogged(facility) || !logWarn())
+    if( !isFacilityLogged(facility) || !Logger::logWarn())
         return;
 
     char str[255];
@@ -76,7 +76,7 @@ Logger::warnf(Facility facility, const char* file, const char* function, int lin
 void
 Logger::errorf(Facility facility, const char* file, const char* function, int line, const char *format, ...)
 {
-    if( !isFacilityLogged(facility) || !logError())
+    if( !isFacilityLogged(facility) || !Logger::logError())
         return;
 
     char str[255];

@@ -801,7 +801,7 @@ MainWindow::updateErrorFacilities()
 void
 MainWindow::updateErrorLevels()
 {
-    QItemSelectionModel* model = ui->listFacilities->selectionModel();
+    QItemSelectionModel* model = ui->listLevels->selectionModel();
 
     Logger::logDebug(model->isRowSelected(0, QModelIndex()));
     Logger::logWarn(model->isRowSelected(1, QModelIndex()));
