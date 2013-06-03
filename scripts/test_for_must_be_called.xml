@@ -54,7 +54,7 @@
             <state>High</state>
         </action>
         <name>must be called b (with condition not working)</name>
-        <type>Normal</type>
+        <type>MustBeCalled</type>
         <NoConcurrent>false</NoConcurrent>
     </rule>
     <variable>

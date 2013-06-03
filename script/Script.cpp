@@ -233,8 +233,21 @@ void Script::clearVariables()
     m_listVars.clear();
 }
 
+bool cmpCallable(const Rule* lhs, const Rule* rhs)
+{
+    if( lhs->getType() == Rule::MustBeCalled  && rhs->getType() != Rule::MustBeCalled)
+        return true;
+    else
+        return false;
+}
+
 void Script::init(ConfigManager *config)
 {
+    // sort rules such that callable rules are in the list BEFORE the not callable rules,
+    // this ensures that if a not callable rule calls a callable rule
+    // the conditions of the callable rule are already true
+    std::sort(m_listRules.begin(), m_listRules.end(), cmpCallable);
+
     // Actions and therefore Outputs have to be initialized before the conditions, because the inputs can fire as soon as they are initialized
     for(std::vector<Rule*>::iterator ruleIt = m_listRules.begin(); ruleIt != m_listRules.end(); ruleIt++)
     {

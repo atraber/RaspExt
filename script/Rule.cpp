@@ -277,7 +277,11 @@ void Rule::executeActions(unsigned int start)
  */
 void Rule::call()
 {
-    pi_assert(m_type == MustBeCalled);
+    if(m_type != MustBeCalled)
+    {
+        LOG_WARN(Logger::Script, "Script was called, but is script does not have type \"Mustbe called\", aborting execution");
+        return;
+    }
 
     LOG_DEBUG(Logger::Script, "Rule %s was called, evaluating conditions", m_name.c_str());
 
